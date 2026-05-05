@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --dark-black-900: #080808;
+  --dark-black: #191919;
+  --white: white;
+  --rich-width: 92%;
+  --dark-black-400: #9c9c9c;
+  --dark-black-500: #616261;
+  --black: black;
+  --dark-black-300: #e6e6e6;
+  --dark-black-600: #3e3e3e;
+  --dark-black-100: #fafafa;
+  --new-neutral-700: #404040;
+  --new-neutral-500: #737373;
+  --violet: #8a5cff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--dark-black-900);
+  --color-foreground: var(--white);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media screen and (min-width: 992px) and (max-width: 1919px) {
+  html {
+    font-size: 1vw;
   }
 }
 
+html {
+  height: 100%;
+  font-size: 1rem;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-family: var(--font-body), sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.hero-heading {
+  font-family: var(--font-display), system-ui, sans-serif;
 }
