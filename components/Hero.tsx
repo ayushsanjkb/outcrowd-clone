@@ -15,10 +15,17 @@ export default function Hero() {
       const scrollY = window.scrollY
       const vh = window.innerHeight
       const vw = window.innerWidth
+      const progress = Math.min(scrollY / (vh * 6), 1)
       const targetScale = 40 / Math.max(vw, vh)
-      const progress = Math.min(scrollY / (vh * 2), 1)
       const scale = 1 - progress * (1 - targetScale)
-      blobRef.current.style.transform = `translate3d(-22px, 0px, 0px) scale(${scale})`
+      const blur = 25.8465 * (1 - progress)
+      blobRef.current.style.transform = `translateX(calc(-50% - 22px)) scale(${scale})`
+      blobRef.current.style.filter = `blur(${blur}px)`
+      // Fade out blob once past the hero + WeMakeIt sections (2 viewports)
+      const fadeStart = vh * 1.8
+      const fadeEnd = vh * 2.5
+      const opacity = scrollY < fadeStart ? 1 : Math.max(0, 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart))
+      blobRef.current.style.opacity = String(opacity)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -26,17 +33,25 @@ export default function Hero() {
 
   return (
     <>
-      {/* Fixed blob at z=0 — sits above the white body bg, below the text (z=1) */}
+      {/*
+        Blob: fixed, displayed at natural proportions (1061×716px → ~73.6vw wide).
+        Centered horizontally with the reference's -22px leftward offset.
+        Top at ~34.5vh — matches reference where blob sits below the heading text.
+        Transparent bg of the image lets the white page show around the circles.
+      */}
       <div
         ref={blobRef}
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0"
+        className="pointer-events-none fixed z-0"
         style={{
-          willChange: 'transform, filter',
-          transform: 'translate3d(-22px, 0px, 0px) scale(1)',
-          transformStyle: 'preserve-3d',
+          width: '80vw',
+          aspectRatio: '1061 / 716',
+          top: '22vh',
+          left: '50%',
+          transform: 'translateX(calc(-50% - 22px)) scale(1)',
           transformOrigin: 'center center',
-          filter: 'blur(22.4454px)',
+          filter: 'blur(25.8465px)',
+          willChange: 'transform, filter',
         }}
       >
         <Image
@@ -44,30 +59,27 @@ export default function Hero() {
           alt=""
           fill
           priority
-          className="object-contain object-center"
+          className="object-contain"
         />
       </div>
 
-      {/* Hero section — transparent bg so blob shows through */}
-      <section className="relative min-h-svh overflow-hidden">
-        {/* Heading — z=1 so it paints above the fixed blob */}
+      {/* Hero section — transparent so blob shows through */}
+      <section className="relative min-h-svh overflow-x-hidden">
         <h1
-          className="relative z-[1] select-none whitespace-nowrap text-left font-medium leading-none text-[#1d1d1d]"
+          className="relative z-[1] select-none text-center font-medium leading-none text-[#1d1d1d]"
           style={{
-            fontSize: 'clamp(2.5rem, 18vw, 20rem)',
-            paddingTop: 'clamp(5rem, 13vh, 10rem)',
-            paddingLeft: 'clamp(1rem, 12vw, 9rem)',
+            fontSize: 'clamp(2.5rem, 9.6vw, 140px)',
+            paddingTop: 'clamp(3rem, 20vh, 8rem)',
           }}
         >
           {HEADING}
         </h1>
 
-        {/* Subtitle — z=1 sits above blob */}
         <p
-          className="relative z-[1] text-center text-[#9c9c9c]"
+          className="relative z-[1] text-center text-[#4a4a4a]"
           style={{
-            fontSize: 'clamp(0.9rem, 1.8vw, 1.6rem)',
-            marginTop: 'clamp(1rem, 3vw, 2.5rem)',
+            fontSize: 'clamp(0.85rem, 1.5vw, 1.4rem)',
+            marginTop: 'clamp(1rem, 3vw, 2rem)',
           }}
         >
           {SUBTITLE}
