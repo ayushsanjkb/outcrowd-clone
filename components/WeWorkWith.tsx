@@ -23,34 +23,46 @@ export default function WeWorkWith() {
     <section className="overflow-hidden bg-[#f5f5f7] px-6 py-24">
       <div className="mx-auto max-w-[1100px]">
         <h2
-          className="mb-16 font-medium text-[#1d1d1d]"
+          className="hero-heading reveal-item mb-16 font-medium text-[#1d1d1d]"
           style={{ fontSize: 'clamp(2.5rem, 4.4vw, 64px)', maxWidth: '600px' }}
         >
           We work with all kinds of clients
         </h2>
 
         {/* Row 1 */}
-        <div className="mb-5 flex items-end gap-5">
-          {ROW1.map(({ src, alt, w, h }) => (
-            <div key={src} className="relative flex-1 overflow-hidden rounded-2xl shadow-sm">
+        <div className="reveal-group mb-5 flex items-end gap-5">
+          {ROW1.map(({ src, alt, w, h }, i) => (
+            <div
+              key={src}
+              className="reveal-item relative flex-1 overflow-hidden rounded-2xl shadow-sm"
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
               <Image src={src} alt={alt} width={w} height={h} className="h-full w-full object-cover" />
             </div>
           ))}
         </div>
 
         {/* Row 2 */}
-        <div className="mb-5 flex items-start gap-5">
-          {ROW2.map(({ src, alt, w, h }) => (
-            <div key={src} className="relative flex-1 overflow-hidden rounded-2xl shadow-sm">
+        <div className="reveal-group mb-5 flex items-start gap-5">
+          {ROW2.map(({ src, alt, w, h }, i) => (
+            <div
+              key={src}
+              className="reveal-item relative flex-1 overflow-hidden rounded-2xl shadow-sm"
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
               <Image src={src} alt={alt} width={w} height={h} className="h-full w-full object-cover" />
             </div>
           ))}
         </div>
 
         {/* Row 3 */}
-        <div className="flex items-center gap-5">
-          {ROW3.map(({ src, alt, w, h }) => (
-            <div key={src} className={`relative overflow-hidden rounded-2xl shadow-sm ${src.includes('derr') ? 'flex-[2]' : 'flex-1'}`}>
+        <div className="reveal-group flex items-center gap-5">
+          {ROW3.map(({ src, alt, w, h }, i) => (
+            <div
+              key={src}
+              className={`reveal-item relative overflow-hidden rounded-2xl shadow-sm ${src.includes('derr') ? 'flex-[2]' : 'flex-1'}`}
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
               <Image src={src} alt={alt} width={w} height={h} className="h-full w-full object-cover" />
             </div>
           ))}

@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import WeMakeIt from '@/components/WeMakeIt'
 import BrandSystem from '@/components/BrandSystem'
 import BrandScrollItems from '@/components/BrandScrollItems'
 import ElementsOfBranding from '@/components/ElementsOfBranding'
@@ -16,7 +15,6 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <WeMakeIt />
       <BrandSystem />
       <BrandScrollItems />
       <ElementsOfBranding />

@@ -4,6 +4,9 @@ import { useEffect, useRef } from 'react'
 
 const ITEMS = ['Brand Identity', 'Brand Book', 'Logotype', 'Promo Materials']
 
+// Original gradient: 308deg, #5491EA → #7CC6EE (matches inspected rgb values)
+const GRADIENT = 'linear-gradient(308deg, #5491EA, #7CC6EE 60%, #5491EA)'
+
 export default function BrandScrollItems() {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -15,7 +18,8 @@ export default function BrandScrollItems() {
         const rect = el.getBoundingClientRect()
         const center = rect.top + rect.height / 2
         const dist = Math.abs(center - vh / 2)
-        const opacity = Math.max(0.07, 1 - dist / (vh * 0.55))
+        // Matches original: min opacity 0.2 at far edges, peaks at 1 when centred
+        const opacity = Math.max(0.2, 1 - dist / (vh * 0.55))
         el.style.opacity = String(opacity)
       })
     }
@@ -31,11 +35,17 @@ export default function BrandScrollItems() {
           key={item}
           ref={(el) => { itemRefs.current[i] = el }}
           className="flex min-h-svh items-center justify-center"
-          style={{ opacity: 0.07 }}
+          style={{ opacity: 0.2 }}
         >
           <h3
-            className="text-center font-medium text-[#3b7fc4]"
-            style={{ fontSize: 'clamp(2.5rem, 8.3vw, 120px)' }}
+            className="hero-heading select-none text-center font-medium"
+            style={{
+              fontSize: 'clamp(2.5rem, 8.3vw, 120px)',
+              background: GRADIENT,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
             {item}
           </h3>

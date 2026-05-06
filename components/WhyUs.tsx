@@ -38,15 +38,15 @@ export default function WhyUs() {
     <section className="bg-[#fbfbfd] px-6 py-24">
       <div className="mx-auto max-w-[1100px]">
         <h3
-          className="mb-16 font-medium text-[#1d1d1d]"
+          className="hero-heading reveal-item mb-16 font-medium text-[#1d1d1d]"
           style={{ fontSize: 'clamp(2.5rem, 4.4vw, 64px)' }}
         >
           Why us?
         </h3>
 
-        <div className="grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-3">
+        <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-3">
           {REASONS.map(({ icon, title, desc }) => (
-            <div key={title}>
+            <div key={title} className="reveal-item">
               <div className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-2xl bg-white p-4 shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
                 <Image src={icon} alt={title} width={36} height={36} className="object-contain" />
               </div>

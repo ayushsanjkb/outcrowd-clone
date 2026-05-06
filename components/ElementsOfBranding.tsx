@@ -7,21 +7,21 @@ export default function ElementsOfBranding() {
         {/* Heading */}
         <div className="mb-6 text-center">
           <h2
-            className="font-medium text-white"
+            className="hero-heading reveal-item font-medium text-white"
             style={{ fontSize: 'clamp(2rem, 4.4vw, 64px)' }}
           >
             Elements of Branding
           </h2>
           <p
-            className="mx-auto mt-4 text-center text-[#737373]"
-            style={{ fontSize: 'clamp(0.85rem, 1.1vw, 16px)', maxWidth: '620px', lineHeight: '1.7' }}
+            className="reveal-item mx-auto mt-4 text-center text-[#737373]"
+            style={{ fontSize: 'clamp(0.85rem, 1.1vw, 16px)', maxWidth: '620px', lineHeight: '1.7', transitionDelay: '100ms' }}
           >
             The logo encapsulates the idea behind the brand. We know how to make it work for you. Colors add a touch of soul that will resonate better with your customers.
           </p>
         </div>
 
         {/* Brand example block */}
-        <div className="mt-16 overflow-hidden rounded-2xl border border-[#1e1e1e]">
+        <div className="reveal-item mt-16 overflow-hidden rounded-2xl border border-[#1e1e1e]" style={{ transitionDelay: '200ms' }}>
           {/* Section header */}
           <div className="border-b border-[#1e1e1e] px-8 py-5">
             <p className="text-sm font-medium text-white">

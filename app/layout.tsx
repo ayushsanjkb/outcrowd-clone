@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, Poppins } from 'next/font/google'
 import './globals.css'
+import SmoothScroll from '@/components/SmoothScroll'
 
 const syne = Syne({
   variable: '--font-display',
@@ -28,7 +29,9 @@ export default function RootLayout({
       lang="en"
       className={`${syne.variable} ${poppins.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   )
 }

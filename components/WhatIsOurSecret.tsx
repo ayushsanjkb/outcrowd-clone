@@ -38,15 +38,15 @@ export default function WhatIsOurSecret() {
     <section data-nav-dark className="bg-black px-6 py-24">
       <div className="mx-auto max-w-[1100px]">
         <h2
-          className="mb-16 font-medium text-white"
+          className="hero-heading reveal-item mb-16 font-medium text-white"
           style={{ fontSize: 'clamp(2.5rem, 4.4vw, 64px)' }}
         >
           What&apos;s our secret?
         </h2>
 
-        <div className="grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-3">
+        <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-3">
           {SECRETS.map(({ icon, title, desc }) => (
-            <div key={title}>
+            <div key={title} className="reveal-item">
               <div className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-2xl bg-[#141414] p-4">
                 <Image src={icon} alt={title} width={36} height={36} className="object-contain" />
               </div>
