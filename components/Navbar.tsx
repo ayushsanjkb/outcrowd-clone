@@ -4,15 +4,15 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 const NAV_LINKS = [
-  { label: 'Cases', href: '#cases' },
-  { label: 'Service', href: '#service' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'About us', href: '#about' },
+  { label: 'Cases',    href: '#cases'   },
+  { label: 'Service',  href: '#service' },
+  { label: 'Blog',     href: '#blog'    },
+  { label: 'About us', href: '#about'  },
 ] as const
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [dark, setDark] = useState(false)
+  const [dark, setDark]         = useState(false)
 
   useEffect(() => {
     const darkSections = document.querySelectorAll('[data-nav-dark]')
@@ -40,49 +40,111 @@ export default function Navbar() {
     }
   }, [])
 
-  const pillBg = dark ? 'bg-[#1a1a1a]' : 'bg-[#fafafa]'
-  const linkColor = dark ? 'text-[#737373] hover:text-white' : 'text-[#9c9c9c] hover:text-[#1d1d1d]'
-  const bookBg = dark
-    ? 'bg-[#2e2e2e] text-white hover:bg-[#3a3a3a]'
-    : 'bg-[#ebebeb] text-[#1d1d1d] hover:bg-[#e0e0e0]'
+  const pillBg  = dark ? 'bg-[#1a1a1a]' : 'bg-[#fafafa]'
+  const linkCol = dark ? 'text-[#737373]' : 'text-[#9c9c9c]'
+  const bookBg  = dark ? 'bg-[#2e2e2e] text-white' : 'bg-[#ebebeb] text-[#1d1d1d]'
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 flex justify-center px-6 pt-5">
       <nav
-        className={`flex shrink-0 items-center justify-between overflow-hidden rounded-[0.83333rem] transition-colors duration-300 ${pillBg}`}
+        className={`flex shrink-0 items-center justify-between rounded-[0.83333rem] transition-colors duration-300 ${pillBg}`}
         style={{ width: '41.25rem', height: '3.47222rem', padding: '0.28rem' }}
       >
+        {/* Logo */}
         <Link href="/" aria-label="Home" className="shrink-0 pl-2">
           <OutcrowdLogo dark={dark} />
         </Link>
 
+        {/* Nav links (text-roll) or Book a call */}
         {!scrolled ? (
           <ul className="hidden items-center gap-7 md:flex">
             {NAV_LINKS.map(({ label, href }) => (
               <li key={label}>
-                <Link href={href} className={`text-sm font-medium transition-colors duration-200 ${linkColor}`}>
-                  {label}
-                </Link>
+                <RollLink href={href} label={label} colorClass={linkCol} />
               </li>
             ))}
           </ul>
         ) : (
-          <button
-            className={`hidden rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 md:block ${bookBg}`}
-          >
+          <RippleButton tag="button" rippleColor="rgba(255,255,255,0.12)" className={`hidden rounded-full px-5 py-2 text-sm font-medium md:block ${bookBg}`}>
             Book a call
-          </button>
+          </RippleButton>
         )}
 
-        <Link
-          href="#contact"
-          className="rounded-full bg-[#f05a28] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#d94e20]"
-        >
+        {/* Contact — orange + dark ripple */}
+        <RippleButton tag="a" href="#contact" rippleColor="#8a5cff" className="rounded-lg bg-[#f05a28] px-5 py-2.5 text-sm font-semibold text-white">
           Contact
-        </Link>
+        </RippleButton>
       </nav>
     </header>
   )
+}
+
+/* ── Text-roll link ──────────────────────────────────────────────
+   Two identical labels stacked vertically; on hover both slide up
+   (first exits top, second enters from bottom).
+*/
+function RollLink({ href, label, colorClass }: { href: string; label: string; colorClass: string }) {
+  const easing = 'cubic-bezier(0.76, 0, 0.24, 1)'
+  const transition = `transform 350ms ${easing}`
+
+  return (
+    <Link
+      href={href}
+      className={`group relative block overflow-hidden text-sm font-medium ${colorClass}`}
+      style={{ height: '1.1em' }}
+    >
+      {/* Label 1 — exits upward on hover */}
+      <span
+        className="block group-hover:-translate-y-full"
+        style={{ transition }}
+      >
+        {label}
+      </span>
+      {/* Label 2 — enters from below on hover */}
+      <span
+        className="absolute left-0 top-full block group-hover:-translate-y-full"
+        style={{ transition }}
+      >
+        {label}
+      </span>
+    </Link>
+  )
+}
+
+/* ── Ripple button / link ────────────────────────────────────────
+   Wraps children in a relatively-positioned container with a
+   small circle inside that scales to fill the element on hover.
+   Matches original's  cubic-bezier(0.455, 0.03, 0.515, 0.955) 600 ms.
+*/
+type RippleProps = {
+  tag?: 'a' | 'button'
+  href?: string
+  rippleColor?: string
+  className?: string
+  children: React.ReactNode
+}
+
+function RippleButton({ tag = 'button', href, rippleColor = 'rgba(0,0,0,0.15)', className = '', children }: RippleProps) {
+  const inner = (
+    <>
+      <span className="relative z-10">{children}</span>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full transition-transform duration-[600ms] group-hover:scale-[36]"
+        style={{
+          background: rippleColor,
+          transitionTimingFunction: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+        }}
+      />
+    </>
+  )
+
+  const shared = `group relative overflow-hidden ${className}`
+
+  if (tag === 'a' && href) {
+    return <Link href={href} className={shared}>{inner}</Link>
+  }
+  return <button className={shared}>{inner}</button>
 }
 
 function OutcrowdLogo({ dark }: { dark: boolean }) {

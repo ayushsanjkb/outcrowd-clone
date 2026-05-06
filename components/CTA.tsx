@@ -23,11 +23,11 @@ export default function CTA() {
               <div className="mt-10 flex gap-4">
                 <Link
                   href="mailto:hello@outcrowd.io"
-                  className="flex items-center gap-2 rounded-full bg-[#f05a28] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#d94e20]"
+                  className="btn-ripple btn-ripple-orange flex items-center gap-2 rounded-full bg-[#f05a28] px-7 py-3.5 text-sm font-medium text-white"
                 >
                   Write us
                 </Link>
-                <button className="flex items-center gap-2 rounded-full bg-[#404040] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#4a4a4a]">
+                <button className="btn-ripple btn-ripple-light flex items-center gap-2 rounded-full bg-[#404040] px-7 py-3.5 text-sm font-medium text-white">
                   Book a call
                 </button>
               </div>

@@ -67,6 +67,73 @@ body {
   font-family: var(--font-display), system-ui, sans-serif;
 }
 
+/* ── Nav link text-roll hover ──────────────────────────────────── */
+/*
+  Usage: wrap link text in <span class="nav-roll"><span>Label</span><span>Label</span></span>
+  The first span slides out upward; the second slides in from below.
+  cubic-bezier(0.76, 0, 0.24, 1) matches the original's Webflow ease.
+*/
+.nav-roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.nav-roll > span {
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.nav-roll > span:last-child {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  white-space: nowrap;
+}
+
+.nav-roll:hover > span {
+  transform: translateY(-100%);
+}
+
+/* ── Button radial-explode ripple ──────────────────────────────── */
+/*
+  Matches original's .explode child: 8 px circle scale(0.1) → scale(30)
+  with cubic-bezier(0.455, 0.03, 0.515, 0.955) over 600 ms.
+  Usage: add class "btn-ripple" + a colour modifier to any <a> or <button>.
+*/
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+              opacity  0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.btn-ripple:hover::after {
+  transform: translate(-50%, -50%) scale(32);
+}
+
+/* Orange Contact button — ripple darkens the bg */
+.btn-ripple-orange::after { background: rgba(0, 0, 0, 0.18); }
+
+/* Gray / dark buttons — ripple lightens */
+.btn-ripple-light::after  { background: rgba(255, 255, 255, 0.12); }
+
+/* Dark CTA "Book a call" button */
+.btn-ripple-dark::after   { background: rgba(255, 255, 255, 0.08); }
+
 /* ── Scroll-reveal system ──────────────────────────────────────── */
 .reveal-item {
   opacity: 0;
