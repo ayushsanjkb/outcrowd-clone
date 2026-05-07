@@ -2,7 +2,12 @@ import Image from "next/image";
 
 export default function ElementsOfBranding() {
   return (
-    <section data-nav-dark className="bg-black px-[50px] py-[350px]">
+    <section data-nav-dark className="bg-black px-[50px] py-[350px]"
+    style={{
+      backgroundImage: '/dotted background.webp',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <div className="mx-auto max-w-[1100px]">
         {/* Heading */}
         <div className="mb-6 text-center">
@@ -27,24 +32,13 @@ export default function ElementsOfBranding() {
           </p>
         </div>
 
-        {/* Brand example block */}
+        {/* Brand example block — each row reveals independently */}
         <div
-          className="reveal-item mt-16 overflow-hidden rounded-2xl"
-          style={{
-            transitionDelay: "200ms",
-            backgroundImage: "radial-gradient(circle,#0000,#000)",
-          }}
+          className="mt-16 overflow-hidden rounded-2xl"
+          style={{ backgroundImage: "radial-gradient(circle,#0000,#000)" }}
         >
-          {/* Section header */}
-          {/* <div className=" px-8 py-5">
-            <p className="text-sm font-medium text-white">
-              <span className="text-white">Soun</span>{' '}
-              <span className="text-[#555]">Example</span>
-            </p>
-          </div> */}
-
           {/* Row 1 — full width brand bar */}
-          <div className="px-8 py-5">
+          <div className="reveal-item px-8 py-5" style={{ transitionDelay: "0ms" }}>
             <Image
               src="/soun-example.webp"
               alt="Soun brand elements"
@@ -54,9 +48,8 @@ export default function ElementsOfBranding() {
             />
           </div>
 
-          {/* Row 2 — Logo section */}
-          <div className=" px-8 py-5">
-            {/* <p className="mb-4 text-xs font-medium uppercase tracking-widest text-[#555]">Logo</p> */}
+          {/* Row 2 — Logo */}
+          <div className="reveal-item px-8 py-5" style={{ transitionDelay: "80ms" }}>
             <Image
               src="/soun-logo.webp"
               alt="Soun logo"
@@ -66,10 +59,9 @@ export default function ElementsOfBranding() {
             />
           </div>
 
-          {/* Row 3 — Font + Color */}
-          <div className="grid grid-cols-2 ">
-            <div className="px-8 py-5">
-              {/* <p className="mb-4 text-xs font-medium uppercase tracking-widest text-[#555]">Font</p> */}
+          {/* Row 3 — Font */}
+          <div className="grid grid-cols-2">
+            <div className="reveal-item px-8 py-5" style={{ transitionDelay: "160ms" }}>
               <Image
                 src="/sans-fonts.webp"
                 alt="Google Sans font"
@@ -80,8 +72,8 @@ export default function ElementsOfBranding() {
             </div>
           </div>
 
-          {/* <p className="mb-4 text-xs font-medium uppercase tracking-widest text-[#555]">Color</p> */}
-          <div className="px-8 py-5">
+          {/* Row 4 — Color */}
+          <div className="reveal-item px-8 py-5" style={{ transitionDelay: "240ms" }}>
             <Image
               src="/color-codes.webp"
               alt="Brand colors"
@@ -91,10 +83,9 @@ export default function ElementsOfBranding() {
             />
           </div>
 
-          {/* Row 4 — Elements row */}
-          <div className="grid grid-cols-2 ">
-            <div className="px-8 py-5">
-              {/* <p className="mb-4 text-xs font-medium uppercase tracking-widest text-[#555]">Elements</p> */}
+          {/* Row 5 — Elements */}
+          <div className="grid grid-cols-2">
+            <div className="reveal-item px-8 py-5" style={{ transitionDelay: "320ms" }}>
               <Image
                 src="/elements.webp"
                 alt="Brand UI elements"

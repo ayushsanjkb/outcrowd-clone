@@ -35,23 +35,23 @@ const REASONS = [
 
 export default function WhyUs() {
   return (
-    <section className="bg-[#fbfbfd] px-6 py-24">
+    <section className="bg-[#fbfbfd] px-6 py-20">
       <div className="mx-auto max-w-[1100px]">
         <h3
           className="hero-heading reveal-item mb-16 font-medium text-[#1d1d1d]"
-          style={{ fontSize: 'clamp(2.5rem, 4.4vw, 64px)' }}
+          style={{ fontSize: 'clamp(2.5rem, 4.6vw, 64px)' }}
         >
           Why us?
         </h3>
 
-        <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-3">
+        <div className="reveal-group grid grid-cols-1 gap-x-20 gap-y-20 sm:grid-cols-3">
           {REASONS.map(({ icon, title, desc }) => (
             <div key={title} className="reveal-item">
-              <div className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-2xl bg-white p-4 shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
-                <Image src={icon} alt={title} width={36} height={36} className="object-contain" />
+              <div className="mb-5 flex h-[102px] w-[102px] items-center justify-center rounded-2xl">
+                <Image src={icon} alt={title} width={80} height={80} className="object-cover" />
               </div>
-              <h4 className="mb-3 text-[20px] font-semibold text-[#1d1d1d]">{title}</h4>
-              <p className="text-sm leading-relaxed text-[#737373]">{desc}</p>
+              <h3 className="mb-3 text-[17px] font-semibold tracking-tight text-[#1d1d1d]">{title}</h3>
+              <p className="text-[17px] leading-normal tracking-tight text-[#737373]">{desc}</p>
             </div>
           ))}
         </div>

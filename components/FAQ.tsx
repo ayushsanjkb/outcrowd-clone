@@ -53,29 +53,31 @@ function FAQItem({ q, a, isOpen, onToggle }: { q: string; a: string; isOpen: boo
   return (
     <div>
       <button
-        className="flex w-full items-center justify-between py-6 text-left"
+        className="flex w-full items-center justify-between py-7 text-left"
         onClick={onToggle}
         aria-expanded={isOpen}
       >
-        <span className="font-medium text-white" style={{ fontSize: 'clamp(0.9rem, 1.25vw, 18px)' }}>
+        <span className="font-medium text-white" style={{ fontSize: '24px' }}>
           {q}
         </span>
-        <span
-          className="ml-6 flex-shrink-0 text-[#555] transition-transform duration-300"
-          style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
-        >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M9 3v12M3 9h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+        {/* Icon: + when closed, − when open, smooth morph via opacity cross-fade */}
+        <span className="relative ml-8 flex h-7 w-7 flex-shrink-0 items-center justify-center">
+          {/* Horizontal bar — always visible */}
+          <span className="absolute h-[1.5px] w-4 rounded-full bg-[#555]" />
+          {/* Vertical bar — fades out when open */}
+          <span
+            className="absolute h-4 w-[1.5px] rounded-full bg-[#555] transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ opacity: isOpen ? 0 : 1 }}
+          />
         </span>
       </button>
-      {/* CSS grid-rows trick: no measured height needed, works with dynamic content */}
+      {/* grid-rows expand — cubic ease-out for natural feel */}
       <div
-        className="grid transition-[grid-template-rows,opacity] duration-300 ease-in-out"
+        className="grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', opacity: isOpen ? 1 : 0 }}
       >
         <div className="overflow-hidden">
-          <p className="pb-6 text-sm leading-relaxed text-[#737373]">{a}</p>
+          <p className="pb-7 text-[17px] leading-relaxed text-[#737373]">{a}</p>
         </div>
       </div>
     </div>
@@ -90,7 +92,7 @@ export default function FAQ() {
       <div className="mx-auto max-w-[1100px]">
         <h3
           className="hero-heading reveal-item mb-16 text-center font-medium text-white"
-          style={{ fontSize: 'clamp(2rem, 3.9vw, 56px)' }}
+          style={{ fontSize: '56px' }}
         >
           Questions and Answers
         </h3>
