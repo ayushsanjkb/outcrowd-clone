@@ -44,7 +44,7 @@ export default function WhatIsOurSecret() {
           What&apos;s our secret?
         </h2>
 
-        <div className="reveal-group grid grid-cols-1 gap-x-20 gap-y-20 sm:grid-cols-3">
+        <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {SECRETS.map(({ icon, title, desc }) => (
             <div key={title} className="reveal-item">
               <div className="mb-5 flex h-[102px] w-[102px] items-center justify-center rounded-2xl">

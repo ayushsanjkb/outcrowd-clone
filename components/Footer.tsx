@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import { useRef, useEffect } from 'react'
+import gsap from 'gsap'
 
 const NAV_COLS = [
   {
@@ -41,28 +43,46 @@ const SOCIALS = [
   { href: 'https://www.linkedin.com/company/outcrowd-network/',                  icon: '/linkedin.svg',  label: 'LinkedIn'  },
 ]
 
-/* Text-roll hover — two stacked spans, same as nav links */
-function RollLink({ href, label, white = false }: { href: string; label: string; white?: boolean }) {
-  const ease = 'cubic-bezier(0.76,0,0.24,1)'
-  const color = white ? 'text-white' : 'text-[#737373]'
+function RollLink({
+  href, label, color, hoverColor,
+}: {
+  href: string; label: string; color: string; hoverColor: string;
+}) {
+  const ref = useRef<HTMLAnchorElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    gsap.set(el.querySelectorAll('span')[1], { rotationX: -60 })
+  }, [])
+
+  const onEnter = () => {
+    const el = ref.current
+    if (!el) return
+    const [s1, s2] = el.querySelectorAll<HTMLElement>('span')
+    gsap.to(s1, { y: '-110%', rotationX: 60, opacity: 0, color: hoverColor, duration: 0.75, ease: 'power4.inOut', overwrite: true })
+    gsap.to(s2, { y: '-100%', rotationX: 0, color: hoverColor, duration: 0.75, ease: 'power4.inOut', overwrite: true })
+  }
+
+  const onLeave = () => {
+    const el = ref.current
+    if (!el) return
+    const [s1, s2] = el.querySelectorAll<HTMLElement>('span')
+    gsap.to(s1, { y: '0%', rotationX: 0, opacity: 1, color, duration: 0.75, ease: 'power4.inOut', overwrite: true })
+    gsap.to(s2, { y: '0%', rotationX: -60, color, duration: 0.75, ease: 'power4.inOut', overwrite: true })
+  }
+
   return (
     <Link
+      ref={ref}
       href={href}
-      className={`group relative block overflow-hidden text-[15px] font-medium ${color}`}
-      style={{ height: '1.25em' }}
+      className="relative block overflow-hidden text-[15px] font-medium"
+      style={{ height: '1.25em', color, perspective: '700px' }}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
     >
-      <span
-        className="block group-hover:-translate-y-full"
-        style={{ transition: `transform 350ms ${ease}` }}
-      >
-        {label}
-      </span>
-      <span
-        className="absolute left-0 top-full block group-hover:-translate-y-full"
-        style={{ transition: `transform 350ms ${ease}` }}
-      >
-        {label}
-      </span>
+      <span className="block">{label}</span>
+      <span className="absolute left-0 top-full block">{label}</span>
     </Link>
   )
 }
@@ -79,12 +99,10 @@ export default function Footer() {
           <div className="flex gap-16 lg:gap-24">
             {NAV_COLS.map(({ header, links }) => (
               <div key={header.label} className="flex flex-col gap-4">
-                {/* Section header — white, bold */}
-                <RollLink href={header.href} label={header.label} white />
-                {/* Sub-links — gray */}
+                <RollLink href={header.href} label={header.label} color="#ffffff" hoverColor="#e0e0e0" />
                 <div className="flex flex-col gap-3 mt-1">
                   {links.map(({ label, href }) => (
-                    <RollLink key={label} href={href} label={label} />
+                    <RollLink key={label} href={href} label={label} color="#737373" hoverColor="#ffffff" />
                   ))}
                 </div>
               </div>
@@ -93,12 +111,13 @@ export default function Footer() {
 
           {/* Email + socials */}
           <div className="flex flex-col justify-between gap-8">
-            <Link
+            <RollLink
               href="mailto:hello@outcrowd.io"
-              className="text-[15px] font-medium text-[#737373] transition-colors duration-300 hover:text-white"
-            >
-              hello@outcrowd.io
-            </Link>
+              label="hello@outcrowd.io"
+              color="#737373"
+              hoverColor="#ffffff"
+              dir={1}
+            />
 
             <div className="flex items-center gap-3">
               {SOCIALS.map(({ href, icon, label }) => (

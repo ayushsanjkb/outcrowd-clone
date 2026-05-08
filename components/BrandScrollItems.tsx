@@ -37,13 +37,13 @@ export default function BrandScrollItems() {
           ref={(el) => {
             itemRefs.current[i] = el;
           }}
-          className="flex items-center justify-center last:mb-[350px]"
+          className="flex items-center justify-center last:mb-[120px] md:last:mb-[350px]"
           style={{ opacity: 0.2 }}
         >
           <h3
-            className="hero-heading select-none text-center font-medium mt-[160px]"
+            className="hero-heading select-none text-center font-medium mt-[60px] md:mt-[160px]"
             style={{
-              fontSize: "clamp(2.5rem, 8.3vw, 120px)",
+              fontSize: "clamp(2rem, 8.3vw, 120px)",
               background: GRADIENT,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",

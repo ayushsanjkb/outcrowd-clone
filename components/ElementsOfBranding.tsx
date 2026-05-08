@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function ElementsOfBranding() {
   return (
-    <section data-nav-dark className="bg-black px-[50px] py-[350px]"
+    <section data-nav-dark className="bg-black px-5 py-20 md:px-[50px] md:py-[140px] lg:py-[220px]"
     style={{
       backgroundImage: '/dotted background.webp',
       backgroundSize: 'cover',

@@ -154,3 +154,38 @@ body {
 .reveal-group .reveal-item:nth-child(4) { transition-delay: 270ms; }
 .reveal-group .reveal-item:nth-child(5) { transition-delay: 360ms; }
 .reveal-group .reveal-item:nth-child(6) { transition-delay: 450ms; }
+
+/* ── Marquee (infinite horizontal scroll) ──────────────────────── */
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-track--left {
+  animation: marquee-left linear infinite;
+}
+.marquee-track--right {
+  animation: marquee-right linear infinite;
+}
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* Row card height — scales up at wider viewports (mirrors Outcrowd breakpoints) */
+.marquee-card {
+  height: 130px;
+}
+@media (min-width: 640px) {
+  .marquee-track { gap: 24px; }
+  .marquee-card  { height: 180px; }
+}
+@media (min-width: 1024px) {
+  .marquee-track { gap: 34px; }
+  .marquee-card  { height: 260px; }
+}
