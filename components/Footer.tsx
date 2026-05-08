@@ -116,7 +116,6 @@ export default function Footer() {
               label="hello@outcrowd.io"
               color="#737373"
               hoverColor="#ffffff"
-              dir={1}
             />
 
             <div className="flex items-center gap-3">
