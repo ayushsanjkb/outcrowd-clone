@@ -158,15 +158,16 @@ body {
 /* ── Marquee (infinite horizontal scroll) ──────────────────────── */
 .marquee-track {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   width: max-content;
-  will-change: transform;
+  /* will-change: transform; */
 }
 .marquee-track--left {
-  animation: marquee-left linear infinite;
+  /* animation: marquee-left linear infinite; */
 }
 .marquee-track--right {
-  animation: marquee-right linear infinite;
+  /* animation: marquee-right linear infinite; */
 }
 @keyframes marquee-left {
   from { transform: translateX(0); }
@@ -189,3 +190,91 @@ body {
   .marquee-track { gap: 34px; }
   .marquee-card  { height: 260px; }
 }
+
+/* Container Heights to allow room for scrolling */
+.gallery_our_brand {
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 980px;
+    height: 312.2ch; 
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: visible;
+}
+
+@media screen and (min-width: 1440px) {
+    .gallery_our_brand {
+        height: 3725px;
+    }
+}
+
+.brand_bl {
+    position: relative;
+    overflow: visible;
+    width: 100%;
+}
+
+/* Base absolute positioning for all gallery images */
+.brand_bl > div {
+    position: absolute;
+}
+
+/* Specific coordinates extracted from Webflow for desktop */
+@media screen and (min-width: 1280px) {
+    .div-block-672 {
+        width: 988px;
+        top: -18px;
+        left: -264px;
+    }
+    
+    .div-block-673 {
+        width: 430.993px;
+        top: 184px;
+        right: -106px;
+    }
+    
+    .div-block-674 {
+        width: 583.996px;
+        top: 679px;
+        left: 101px;
+    }
+    
+    .div-block-675 {
+        width: 963px;
+        top: 730px;
+        right: -518px;
+    }
+    
+    .div-block-677 {
+        width: 1634px;
+        top: 1411px;
+        left: -615px;
+    }
+    
+    .div-block-678 {
+        width: 438.996px;
+        top: 1393px;
+        right: -113px;
+    }
+    
+    .div-block-679 {
+        width: 765px;
+        top: 2263px;
+        left: -84px;
+    }
+    
+    .div-block-680 {
+        width: 585px;
+        top: 2041px;
+        right: -552px;
+    }
+    
+    .div-block-681 {
+        width: 1634px;
+        top: 2871px;
+        right: -910px;
+    }
+}
+

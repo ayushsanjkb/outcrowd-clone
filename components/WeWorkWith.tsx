@@ -1,78 +1,35 @@
-import Image from 'next/image'
+'use client'
 
-interface Item { src: string; alt: string; w: number; h: number }
-
-const ROW1: Item[] = [
-  { src: '/automera.webp',        alt: 'Automera branding',      w: 540,  h: 390  },
-  { src: '/veni.webp',            alt: 'Veni branding',          w: 400,  h: 609  },
-  { src: '/aqua-essence.webp',    alt: 'Aqua Essence branding',  w: 540,  h: 668  },
-  { src: '/bona.webp',            alt: 'Bona branding',          w: 540,  h: 390  },
-]
-
-const ROW2: Item[] = [
-  { src: '/motion-music.webp',    alt: 'Motion Music branding',  w: 800,  h: 578  },
-  { src: '/dotcal.webp',         alt: 'DotCal branding',         w: 440,  h: 668  },
-  { src: '/big-data-mobile.webp', alt: 'Big Data mobile',        w: 250,  h: 300  },
-  { src: '/derr.webp',            alt: 'Derr branding',          w: 1107, h: 751  },
-]
-
-const ROW3: Item[] = [
-  { src: '/laptop-pills.webp',   alt: 'Laptop pills design',     w: 540,  h: 390  },
-  { src: '/soun-example.webp',   alt: 'Soun design',             w: 1960, h: 686  },
-  { src: '/speaker-ticket.webp', alt: 'Speaker ticket design',   w: 646,  h: 600  },
-  { src: '/visa-apply.webp',     alt: 'Visa apply design',       w: 646,  h: 1041 },
-]
-
-/* 8 images for the mobile 2-col grid — even count keeps all rows balanced */
-const MOBILE_GRID: Item[] = [
-  { src: '/automera.webp',      alt: 'Automera branding',     w: 540,  h: 390 },
-  { src: '/veni.webp',          alt: 'Veni branding',         w: 400,  h: 609 },
-  { src: '/aqua-essence.webp',  alt: 'Aqua Essence branding', w: 540,  h: 668 },
-  { src: '/bona.webp',          alt: 'Bona branding',         w: 540,  h: 390 },
-  { src: '/motion-music.webp',  alt: 'Motion Music branding', w: 800,  h: 578 },
-  { src: '/dotcal.webp',        alt: 'DotCal branding',       w: 440,  h: 668 },
-  { src: '/derr.webp',          alt: 'Derr branding',         w: 1107, h: 751 },
-  { src: '/laptop-pills.webp',  alt: 'Laptop pills design',   w: 540,  h: 390 },
-]
-
-function MarqueeRow({
-  items,
-  reverse,
-  duration,
-}: {
-  items: Item[]
-  reverse?: boolean
-  duration: string
-}) {
-  const doubled = [...items, ...items]
-  return (
-    <div className="overflow-hidden">
-      <div
-        className={`marquee-track ${reverse ? 'marquee-track--right' : 'marquee-track--left'}`}
-        style={{ animationDuration: duration }}
-      >
-        {doubled.map(({ src, alt, w, h }, i) => (
-          <div
-            key={`${src}-${i}`}
-            className="marquee-card relative flex-none overflow-hidden rounded-2xl"
-            style={{ aspectRatio: `${w} / ${h}` }}
-          >
-            <Image src={src} alt={alt} width={w} height={h} className="h-full w-full object-cover" />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 export default function WeWorkWith() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    // "start end": Top of container hits bottom of screen (Progress = 0)
+    // Center of screen (Progress = 0.5) -> Where we want the default layout!
+    // "end start": Bottom of container hits top of screen (Progress = 1)
+    offset: ["start end", "end start"] 
+  })
+
+  // ── The Center-Zero Parallax ──
+  // [Start (Bottom of screen), Center of screen, End (Top of screen)]
+  // We force the middle value to be 0 so it honors your CSS layout exactly.
+  const y1 = useTransform(scrollYProgress, [0, 0.5, 1], [ 100, 0, -100])
+  const y2 = useTransform(scrollYProgress, [0, 0.5, 1], [ 250, 0, -250])
+  const y3 = useTransform(scrollYProgress, [0, 0.5, 1], [  50, 0,  -50])
+  const y4 = useTransform(scrollYProgress, [0, 0.5, 1], [ 150, 0, -150])
+  const y5 = useTransform(scrollYProgress, [0, 0.5, 1], [ 300, 0, -300])
+  const y6 = useTransform(scrollYProgress, [0, 0.5, 1], [ 200, 0, -200])
+
   return (
     <section className="overflow-hidden bg-[#f5f5f7] py-[72px] md:py-[80px] lg:py-[120px]">
 
-      {/* Heading — max-width + padding match Outcrowd .div-block-265 + .container-3 */}
       <div className="mx-auto max-w-[980px] px-5 md:px-[30px] lg:px-[50px]">
         <h2
-          className="hero-heading reveal-item font-medium text-[#1d1d1f]"
+          className="hero-heading font-medium text-[#1d1d1f]"
           style={{
             fontSize: 'clamp(32px, 4.4vw, 64px)',
             lineHeight: 'clamp(40px, 4.6vw, 64px)',
@@ -83,42 +40,49 @@ export default function WeWorkWith() {
         </h2>
       </div>
 
-      {/* ── Mobile: staggered 2-col layout matching Outcrowd reference ── */}
-      <div className="mt-8 px-4 md:hidden">
-        {/* Row 1 */}
-        <div className="mb-3 grid grid-cols-[3fr_2fr] gap-3">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image src="/automera.webp"     alt="Automera branding"    fill sizes="55vw" className="object-cover" />
-          </div>
-          <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: '2/3', marginTop: '40px' }}>
-            <Image src="/veni.webp"         alt="Veni branding"        fill sizes="40vw" className="object-cover" />
+      {/* ── Unified Animated Gallery ────── */}
+      <div ref={containerRef} className="mt-[60px] lg:mt-[100px]">
+        <div className="gallery_our_brand">
+          <div className="brand_bl">
+            
+            <motion.div style={{ y: y1 }} className="div-block-672">
+              <img width="988.5" sizes="(max-width: 991px) 100vw, 988.5px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc12db164920f9e80e42_ipad_01_1.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc12db164920f9e80e42_ipad_01_1.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc12db164920f9e80e42_ipad_01_1.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc12db164920f9e80e42_ipad_01_1.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc12db164920f9e80e42_ipad_01_1.webp 1600w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc12db164920f9e80e42_ipad_01_1.webp 1977w" className="image-149" />
+            </motion.div>
+            
+            <motion.div style={{ y: y2 }} className="div-block-673">
+              <img width="431" sizes="(max-width: 479px) 100vw, 431px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0ddb164920f9e80a68_iphone_01.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0ddb164920f9e80a68_iphone_01.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0ddb164920f9e80a68_iphone_01.webp 862w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y3 }} className="div-block-674">
+              <img width="584" sizes="(max-width: 767px) 100vw, 584px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0fdb164920f9e80c17_desk_1.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0fdb164920f9e80c17_desk_1.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0fdb164920f9e80c17_desk_1.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0fdb164920f9e80c17_desk_1.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc0fdb164920f9e80c17_desk_1.webp 1168w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y4 }} className="div-block-675">
+              <img width="963" sizes="(max-width: 991px) 100vw, 963px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd2457ca138735310f7_ipad_03.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd2457ca138735310f7_ipad_03.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd2457ca138735310f7_ipad_03.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd2457ca13873530f1b_ipad_04.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd2457ca138735310f7_ipad_03.webp 1600w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd2457ca138735310f7_ipad_03.webp 1926w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y5 }} className="div-block-677">
+              <img width="1634" sizes="(max-width: 1919px) 100vw, 1634px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp 1600w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp 2000w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbe0457ca13873531a11_mac_frame_b.webp 3268w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y6 }} className="div-block-678">
+              <img width="439" sizes="(max-width: 479px) 100vw, 439px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc08db164920f9e8071e_iphone_02.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc08db164920f9e8071e_iphone_02.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc08db164920f9e8071e_iphone_02.webp 878w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y1 }} className="div-block-679">
+              <img width="765" sizes="(max-width: 767px) 100vw, 765px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd1457ca13873530f1b_ipad_04.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd1457ca13873530f1b_ipad_04.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd1457ca13873530f1b_ipad_04.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd1457ca13873530f1b_ipad_04.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbd1457ca13873530f1b_ipad_04.webp 1530w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y3 }} className="div-block-680">
+              <img width="585" sizes="(max-width: 767px) 100vw, 585px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbca457ca13873530987_Ipad_05.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbca457ca13873530987_Ipad_05.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbca457ca13873530987_Ipad_05.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbca457ca13873530987_Ipad_05.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbca457ca13873530987_Ipad_05.webp 1170w" />
+            </motion.div>
+            
+            <motion.div style={{ y: y5 }} className="div-block-681">
+              <img width="1634" sizes="(max-width: 1919px) 100vw, 1634px" alt="" src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp" loading="lazy" srcSet="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 500w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 800w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 1080w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 1600w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 2000w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 2600w, https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dbcb457ca13873530a16_macbook_02.webp 2000w" />
+            </motion.div>
+            
           </div>
         </div>
-        {/* Row 2 */}
-        <div className="mb-3 grid grid-cols-[2fr_3fr] gap-3">
-          <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: '2/3', marginBottom: '32px' }}>
-            <Image src="/aqua-essence.webp" alt="Aqua Essence branding" fill sizes="40vw" className="object-cover" />
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image src="/bona.webp"         alt="Bona branding"        fill sizes="55vw" className="object-cover" />
-          </div>
-        </div>
-        {/* Row 3 */}
-        <div className="grid grid-cols-[3fr_2fr] gap-3">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
-            <Image src="/derr.webp"         alt="Derr branding"        fill sizes="55vw" className="object-cover" />
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl" style={{ marginTop: '24px' }}>
-            <Image src="/motion-music.webp" alt="Motion Music"         fill sizes="40vw" className="object-cover" />
-          </div>
-        </div>
-      </div>
-
-      {/* ── Desktop: 3-row infinite marquee (hidden below md) ────── */}
-      <div className="mt-[60px] hidden flex-col gap-[26px] md:flex lg:mt-[100px] lg:gap-[34px]">
-        <MarqueeRow items={ROW1} duration="40s" />
-        <MarqueeRow items={ROW2} reverse duration="50s" />
-        <MarqueeRow items={ROW3} duration="35s" />
       </div>
 
     </section>
