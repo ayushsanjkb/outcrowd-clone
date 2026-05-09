@@ -48,19 +48,19 @@ export default function Hero() {
       // ── 1. Come to centre (0 → vh×1) ─────────────────────────────
       //    Blob rises from 30%vh below centre to exact centre,
       //    blur clears over the same window.
-      const focusP  = c(scrollY / (vh * 1.0));
+      const focusP = c(scrollY / (vh * 1.0));
       const focusEt = easeInOut(focusP);
-      const blur     = 20 * (1 - focusEt);           // 20px → 0
-      const dropOff  = vh * 0.3 * (1 - focusEt);    // 30%vh below → 0
+      const blur = 20 * (1 - focusEt); // 20px → 0
+      const dropOff = vh * 0.3 * (1 - focusEt); // 30%vh below → 0
 
       // ── 2. Shrink from centre (vh×1 → vh×3) ───────────────────────
       //    Pure scale, no positional movement.
       const shrinkP = c((scrollY - vh * 1.0) / (vh * 2.0));
-      const scale1  = 0.9 - shrinkP * 0.72;          // 0.90 → 0.18
+      const scale1 = 0.9 - shrinkP * 0.72; // 0.90 → 0.18
 
       // ── 3. Land on tablet (vh×3 → vh×5) ──────────────────────────
       //    Scale continues 0.18→0.07, blob moves from centre to tablet.
-      const landP  = c((scrollY - vh * 3.0) / (vh * 2.0));
+      const landP = c((scrollY - vh * 3.0) / (vh * 2.0));
       const landEt = easeInOut(landP);
 
       const cappedVw = Math.min(vw, 1440);
@@ -72,7 +72,7 @@ export default function Hero() {
       const tyAtTablet = logoTargetY - vh * 0.5;
 
       const finalScale = (1 - landEt) * scale1 + landEt * 0.07;
-      const finalTY    = dropOff + landEt * tyAtTablet;
+      const finalTY = dropOff + landEt * tyAtTablet;
 
       if (blobRef.current) {
         blobRef.current.style.transform = `translateX(calc(-50% - 22px)) translateY(calc(-50% + ${finalTY}px)) scale(${finalScale})`;

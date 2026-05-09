@@ -108,7 +108,7 @@ body {
 }
 
 .btn-ripple::after {
-  content: '';
+  content: "";
   position: absolute;
   border-radius: 50%;
   width: 8px;
@@ -117,8 +117,9 @@ body {
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   pointer-events: none;
-  transition: transform 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955),
-              opacity  0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition:
+    transform 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    opacity 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .btn-ripple:hover::after {
@@ -126,20 +127,27 @@ body {
 }
 
 /* Orange Contact button — ripple darkens the bg */
-.btn-ripple-orange::after { background: rgba(0, 0, 0, 0.18); }
+.btn-ripple-orange::after {
+  background: rgba(0, 0, 0, 0.18);
+}
 
 /* Gray / dark buttons — ripple lightens */
-.btn-ripple-light::after  { background: rgba(255, 255, 255, 0.12); }
+.btn-ripple-light::after {
+  background: rgba(255, 255, 255, 0.12);
+}
 
 /* Dark CTA "Book a call" button */
-.btn-ripple-dark::after   { background: rgba(255, 255, 255, 0.08); }
+.btn-ripple-dark::after {
+  background: rgba(255, 255, 255, 0.08);
+}
 
 /* ── Scroll-reveal system ──────────────────────────────────────── */
 .reveal-item {
   opacity: 0;
   transform: translateY(44px);
-  transition: opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal-item.revealed {
@@ -148,12 +156,24 @@ body {
 }
 
 /* stagger siblings inside a reveal-group */
-.reveal-group .reveal-item:nth-child(1) { transition-delay: 0ms; }
-.reveal-group .reveal-item:nth-child(2) { transition-delay: 90ms; }
-.reveal-group .reveal-item:nth-child(3) { transition-delay: 180ms; }
-.reveal-group .reveal-item:nth-child(4) { transition-delay: 270ms; }
-.reveal-group .reveal-item:nth-child(5) { transition-delay: 360ms; }
-.reveal-group .reveal-item:nth-child(6) { transition-delay: 450ms; }
+.reveal-group .reveal-item:nth-child(1) {
+  transition-delay: 0ms;
+}
+.reveal-group .reveal-item:nth-child(2) {
+  transition-delay: 90ms;
+}
+.reveal-group .reveal-item:nth-child(3) {
+  transition-delay: 180ms;
+}
+.reveal-group .reveal-item:nth-child(4) {
+  transition-delay: 270ms;
+}
+.reveal-group .reveal-item:nth-child(5) {
+  transition-delay: 360ms;
+}
+.reveal-group .reveal-item:nth-child(6) {
+  transition-delay: 450ms;
+}
 
 /* ── Marquee (infinite horizontal scroll) ──────────────────────── */
 .marquee-track {
@@ -170,12 +190,20 @@ body {
   /* animation: marquee-right linear infinite; */
 }
 @keyframes marquee-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 /* Row card height — scales up at wider viewports (mirrors Outcrowd breakpoints) */
@@ -183,98 +211,90 @@ body {
   height: 130px;
 }
 @media (min-width: 640px) {
-  .marquee-track { gap: 24px; }
-  .marquee-card  { height: 180px; }
+  .marquee-track {
+    gap: 24px;
+  }
+  .marquee-card {
+    height: 180px;
+  }
 }
 @media (min-width: 1024px) {
-  .marquee-track { gap: 34px; }
-  .marquee-card  { height: 260px; }
+  .marquee-track {
+    gap: 34px;
+  }
+  .marquee-card {
+    height: 260px;
+  }
 }
 
-/* Container Heights to allow room for scrolling */
+/* Container Heights */
 .gallery_our_brand {
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 980px;
-    height: 312.2ch; 
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    overflow: visible;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 980px;
+  height: 312.2ch;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: visible;
 }
 
 @media screen and (min-width: 1440px) {
-    .gallery_our_brand {
-        height: 3725px;
-    }
+  .gallery_our_brand {
+    height: 3725px;
+  }
 }
 
 .brand_bl {
-    position: relative;
-    overflow: visible;
-    width: 100%;
+  position: relative;
+  overflow: visible;
+  width: 100%;
 }
 
 /* Base absolute positioning for all gallery images */
 .brand_bl > div {
-    position: absolute;
+  position: absolute;
 }
 
-/* Specific coordinates extracted from Webflow for desktop */
+/* CRITICAL FIX: Force the massive Webflow images to fit inside their containers */
+.brand_bl img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  display: block;
+}
+
+/* --- MOBILE STYLES (Phones only) --- */
+@media screen and (max-width: 767px) {
+  .gallery_our_brand {
+    max-width: 239px;
+    height: 120ch;
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .div-block-672 { width: 248px; top: -20px; left: -106px; }
+  .div-block-673 { width: 108px; top: 33px; right: -31px; }
+  .div-block-674 { width: 147px; top: 164px; left: -15px; }
+  .div-block-675 { width: 242px; top: 177px; right: -135px; }
+  .div-block-677 { width: 411px; top: 357px; left: -195px; }
+  .div-block-678 { width: 110px; top: 352px; right: -33px; }
+  .div-block-679 { width: 192px; top: 580px; left: -61px; }
+  .div-block-680 { width: 147px; top: 524px; right: -142px; }
+  .div-block-681 { width: 411px; top: 742px; right: -235px; }
+}
+
+/* --- DESKTOP STYLES --- */
 @media screen and (min-width: 1280px) {
-    .div-block-672 {
-        width: 988px;
-        top: -18px;
-        left: -264px;
-    }
-    
-    .div-block-673 {
-        width: 430.993px;
-        top: 184px;
-        right: -106px;
-    }
-    
-    .div-block-674 {
-        width: 583.996px;
-        top: 679px;
-        left: 101px;
-    }
-    
-    .div-block-675 {
-        width: 963px;
-        top: 730px;
-        right: -518px;
-    }
-    
-    .div-block-677 {
-        width: 1634px;
-        top: 1411px;
-        left: -615px;
-    }
-    
-    .div-block-678 {
-        width: 438.996px;
-        top: 1393px;
-        right: -113px;
-    }
-    
-    .div-block-679 {
-        width: 765px;
-        top: 2263px;
-        left: -84px;
-    }
-    
-    .div-block-680 {
-        width: 585px;
-        top: 2041px;
-        right: -552px;
-    }
-    
-    .div-block-681 {
-        width: 1634px;
-        top: 2871px;
-        right: -910px;
-    }
+  .div-block-672 { width: 988px; top: -18px; left: -264px; }
+  .div-block-673 { width: 430.993px; top: 184px; right: -106px; }
+  .div-block-674 { width: 583.996px; top: 679px; left: 101px; }
+  .div-block-675 { width: 963px; top: 730px; right: -518px; }
+  .div-block-677 { width: 1634px; top: 1411px; left: -615px; }
+  .div-block-678 { width: 438.996px; top: 1393px; right: -113px; }
+  .div-block-679 { width: 765px; top: 2263px; left: -84px; }
+  .div-block-680 { width: 585px; top: 2041px; right: -552px; }
+  .div-block-681 { width: 1634px; top: 2871px; right: -910px; }
 }
-
