@@ -191,7 +191,7 @@ export default function Hero() {
            Outstanding texts scroll naturally behind it at z-[3] (below sticky z=5).
            brandRef keeps its own overflow-hidden to clip rising brand items. ── */}
       <div
-        className="sticky top-0 h-[90svh] md:h-[100svh]"
+        className="sticky top-0 h-[90svh] md:h-[100svh] pointer-events-none"
         style={{ zIndex: 5 }}
       >
         {/* Blob — z-[10] sandwiches it between "We make it" and "Outstanding" */}
@@ -374,9 +374,9 @@ export default function Hero() {
       {/* ── Fixed Scroll Text Layers ─────────────────── */}
 
       {/* 1. "Branding & Subtitle" -> Tightly grouped together at the top */}
-      <div className="pointer-events-none absolute inset-x-0 top-[30vh] md:top-[20vh] z-[15] flex flex-col items-center gap-1 md:gap-4">
+      <div className="absolute inset-x-0 top-[30vh] md:top-[20vh] z-[15] flex flex-col items-center gap-1 md:gap-4">
         <h1
-          className="hero-heading select-none text-center font-medium leading-none text-[#1d1d1d]"
+          className="hero-heading text-center font-medium leading-none text-[#1d1d1d]"
           style={{ fontSize: "clamp(3.5rem, 16.667vw, 240px)" }}
         >
           Branding
@@ -393,7 +393,7 @@ export default function Hero() {
            Mobile: at 90svh (= sticky bottom) so it's visible at bottom of viewport at scroll=0.
            Desktop: at 146vh matching reference. */}
       <div
-        className="pointer-events-none absolute inset-x-0 flex flex-col items-center justify-center text-center z-[20] top-[90svh] md:top-[146vh]"
+        className="absolute inset-x-0 flex flex-col items-center justify-center text-center z-[20] top-[90svh] md:top-[146vh]"
       >
         <h2
           className="hero-heading font-medium text-[#1d1d1d]"

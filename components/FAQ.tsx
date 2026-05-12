@@ -63,7 +63,7 @@ function FAQItem({
   return (
     <div>
       <button
-        className="flex w-full items-center justify-between py-3 md:py-7 text-left"
+        className="flex w-full items-center justify-between py-5 md:py-7 text-left"
         onClick={onToggle}
         aria-expanded={isOpen}
       >
@@ -90,7 +90,7 @@ function FAQItem({
         }}
       >
         <div className="overflow-hidden">
-          <p className="pb-7 text-[17px] leading-relaxed text-[#737373]">{a}</p>
+          <p className="pb-7 text-[13px] md:text-[17px] leading-relaxed text-[#737373]">{a}</p>
         </div>
       </div>
     </div>
