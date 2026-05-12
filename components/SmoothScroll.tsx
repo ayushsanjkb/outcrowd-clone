@@ -6,7 +6,12 @@ import { useEffect } from 'react'
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // ── Lenis smooth scroll ──────────────────────────────────────
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      syncTouch: false,
+    })
 
     let rafId: number
     function raf(time: number) {

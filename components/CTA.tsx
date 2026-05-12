@@ -12,7 +12,7 @@ export default function CTA() {
             <div className="flex w-full max-w-[480px] flex-col">
               <h2
                 className="hero-heading font-medium text-white"
-                style={{ fontSize: 'clamp(2.5rem, 7.8vw, 112px)', lineHeight: '1' }}
+                style={{ fontSize: 'clamp(50px, 7.8vw, 112px)', lineHeight: '1' }}
               >
                 Innovate
                 <br />

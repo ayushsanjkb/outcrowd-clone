@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import MobileHeroBrand from '@/components/MobileHeroBrand'
 import BrandSystem from '@/components/BrandSystem'
 import BrandScrollItems from '@/components/BrandScrollItems'
 import ElementsOfBranding from '@/components/ElementsOfBranding'
@@ -15,6 +16,7 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
+      <MobileHeroBrand />
       <BrandSystem />
       <BrandScrollItems />
       <ElementsOfBranding />

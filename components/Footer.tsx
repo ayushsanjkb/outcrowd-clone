@@ -89,14 +89,45 @@ function RollLink({
 
 export default function Footer() {
   return (
-    <footer data-nav-dark className="bg-[#080808] px-6 pb-10 pt-16">
+    <footer data-nav-dark className="bg-[#080808] px-6 pb-24 pt-16">
       <div className="mx-auto max-w-[1100px]">
 
-        {/* Main — nav columns + email/socials */}
-        <div className="flex flex-col gap-12 border-b border-[#1e1e1e] pb-12 md:flex-row md:justify-between">
+        {/* Main — email/socials + nav columns */}
+        <div className="flex flex-col gap-10 border-b border-[#1e1e1e] pb-12 md:flex-row md:justify-between md:gap-12">
 
-          {/* Nav columns */}
-          <div className="flex gap-16 lg:gap-24">
+          {/* Email + socials — top on mobile, right on desktop */}
+          <div className="order-1 md:order-2 flex flex-col items-start md:items-end gap-5">
+            <a
+              href="mailto:hello@outcrowd.io"
+              className="email-link text-white no-underline transition-opacity duration-300 hover:opacity-70"
+              style={{
+                fontSize: 'clamp(1.8rem, 5vw, 3.2rem)',
+                fontWeight: 500,
+                lineHeight: '120%',
+              }}
+            >
+              hello@outcrowd.io
+            </a>
+
+            <div className="flex items-center gap-3">
+              {SOCIALS.map(({ href, icon, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-[#1a1a1a] transition-colors duration-300 hover:bg-[#2a2a2a]"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={icon} alt={label} width={15} height={15} className="relative z-10 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Nav columns — wrap on mobile (2+1 rows), row on desktop */}
+          <div className="order-2 md:order-1 flex flex-wrap gap-10 md:flex-nowrap md:gap-16 lg:gap-24">
             {NAV_COLS.map(({ header, links }) => (
               <div key={header.label} className="flex flex-col gap-4">
                 <RollLink href={header.href} label={header.label} color="#ffffff" hoverColor="#e0e0e0" />
@@ -108,36 +139,10 @@ export default function Footer() {
               </div>
             ))}
           </div>
-
-          {/* Email + socials */}
-          <div className="flex flex-col justify-between gap-8">
-            <RollLink
-              href="mailto:hello@outcrowd.io"
-              label="hello@outcrowd.io"
-              color="#737373"
-              hoverColor="#ffffff"
-            />
-
-            <div className="flex items-center gap-3">
-              {SOCIALS.map(({ href, icon, label }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[#1a1a1a] transition-colors duration-300 hover:bg-[#2a2a2a]"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={icon} alt={label} width={15} height={15} className="relative z-10 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex items-center justify-between pt-8">
+        {/* Bottom bar — stacked on mobile, row on desktop */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-8 gap-1">
           <p className="text-[13px] text-[#555]">Copyright © 2025 Outcrowd Inc. All rights reserved.</p>
           <p className="text-[13px] text-[#555]">Lewes — USA</p>
         </div>

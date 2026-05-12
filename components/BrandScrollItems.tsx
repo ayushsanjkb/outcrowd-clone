@@ -30,20 +30,21 @@ export default function BrandScrollItems() {
   }, []);
 
   return (
-    <section className="bg-white">
+    <section className="bg-white pt-[32px] md:pt-[160px]">
       {ITEMS.map((item, i) => (
         <div
           key={item}
           ref={(el) => {
             itemRefs.current[i] = el;
           }}
-          className="flex items-center justify-center last:mb-[120px] md:last:mb-[350px]"
+          className="flex items-center justify-center mt-[60px] md:mt-[160px] [&:first-child]:mt-0 last:mb-[72px] md:last:mb-[350px]"
           style={{ opacity: 0.2 }}
         >
           <h3
-            className="hero-heading select-none text-center font-medium mt-[60px] md:mt-[160px]"
+            className="hero-heading select-none text-center font-medium"
             style={{
-              fontSize: "clamp(2rem, 8.3vw, 120px)",
+              fontSize: "clamp(2.5rem, 8.3vw, 120px)",
+              lineHeight: "clamp(44px, 10.4vw, 150px)",
               background: GRADIENT,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",

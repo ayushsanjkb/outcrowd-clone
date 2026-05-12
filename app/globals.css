@@ -275,26 +275,98 @@ body {
     padding-right: 20px;
   }
 
-  .div-block-672 { width: 248px; top: -20px; left: -106px; }
-  .div-block-673 { width: 108px; top: 33px; right: -31px; }
-  .div-block-674 { width: 147px; top: 164px; left: -15px; }
-  .div-block-675 { width: 242px; top: 177px; right: -135px; }
-  .div-block-677 { width: 411px; top: 357px; left: -195px; }
-  .div-block-678 { width: 110px; top: 352px; right: -33px; }
-  .div-block-679 { width: 192px; top: 580px; left: -61px; }
-  .div-block-680 { width: 147px; top: 524px; right: -142px; }
-  .div-block-681 { width: 411px; top: 742px; right: -235px; }
+  .div-block-672 {
+    width: 248px;
+    top: -20px;
+    left: -106px;
+  }
+  .div-block-673 {
+    width: 108px;
+    top: 33px;
+    right: -31px;
+  }
+  .div-block-674 {
+    width: 147px;
+    top: 164px;
+    left: -15px;
+  }
+  .div-block-675 {
+    width: 242px;
+    top: 177px;
+    right: -135px;
+  }
+  .div-block-677 {
+    width: 411px;
+    top: 357px;
+    left: -195px;
+  }
+  .div-block-678 {
+    width: 110px;
+    top: 352px;
+    right: -33px;
+  }
+  .div-block-679 {
+    width: 192px;
+    top: 580px;
+    left: -61px;
+  }
+  .div-block-680 {
+    width: 147px;
+    top: 524px;
+    right: -142px;
+  }
+  .div-block-681 {
+    width: 411px;
+    top: 742px;
+    right: -235px;
+  }
 }
 
 /* --- DESKTOP STYLES --- */
 @media screen and (min-width: 1280px) {
-  .div-block-672 { width: 988px; top: -18px; left: -264px; }
-  .div-block-673 { width: 430.993px; top: 184px; right: -106px; }
-  .div-block-674 { width: 583.996px; top: 679px; left: 101px; }
-  .div-block-675 { width: 963px; top: 730px; right: -518px; }
-  .div-block-677 { width: 1634px; top: 1411px; left: -615px; }
-  .div-block-678 { width: 438.996px; top: 1393px; right: -113px; }
-  .div-block-679 { width: 765px; top: 2263px; left: -84px; }
-  .div-block-680 { width: 585px; top: 2041px; right: -552px; }
-  .div-block-681 { width: 1634px; top: 2871px; right: -910px; }
+  .div-block-672 {
+    width: 988px;
+    top: -18px;
+    left: -264px;
+  }
+  .div-block-673 {
+    width: 430.993px;
+    top: 184px;
+    right: -106px;
+  }
+  .div-block-674 {
+    width: 583.996px;
+    top: 679px;
+    left: 101px;
+  }
+  .div-block-675 {
+    width: 963px;
+    top: 730px;
+    right: -518px;
+  }
+  .div-block-677 {
+    width: 1634px;
+    top: 1411px;
+    left: -615px;
+  }
+  .div-block-678 {
+    width: 438.996px;
+    top: 1393px;
+    right: -113px;
+  }
+  .div-block-679 {
+    width: 765px;
+    top: 2263px;
+    left: -84px;
+  }
+  .div-block-680 {
+    width: 585px;
+    top: 2041px;
+    right: -552px;
+  }
+  .div-block-681 {
+    width: 1634px;
+    top: 2871px;
+    right: -910px;
+  }
 }
