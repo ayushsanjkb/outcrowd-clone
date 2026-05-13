@@ -34,7 +34,7 @@ html {
   font-size: 1rem;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body), Georgia, serif;
 }
 
 * {
@@ -56,15 +56,30 @@ html {
 body {
   background: var(--white);
   color: var(--black);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-body), Georgia, serif;
 }
 
 .font-display {
-  font-family: var(--font-display), system-ui, sans-serif;
+  font-family: var(--font-display), 'ITC Avant Garde Gothic Std', sans-serif;
 }
 
 .hero-heading {
-  font-family: var(--font-display), system-ui, sans-serif;
+  font-family: var(--font-display), 'ITC Avant Garde Gothic Std', sans-serif;
+}
+
+/* ── Footer email underline — enters left→right, exits left→right ─ */
+.email-link {
+  display: inline-block;
+  padding-bottom: 4px;
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-size: 0% 1px;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  transition: background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.email-link:hover {
+  background-size: 100% 1px;
+  background-position: left bottom;
 }
 
 /* ── Nav link text-roll hover ──────────────────────────────────── */

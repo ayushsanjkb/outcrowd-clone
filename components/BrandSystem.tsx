@@ -14,10 +14,16 @@ export default function BrandSystem() {
           A brand system equals higher value
         </h2>
         <p
-          className="reveal-item mx-auto mt-[14px] text-[#737373] font-extralight! tracking-tight md:mt-[30px]"
+          className="reveal-item mx-auto mt-[14px] md:mt-[30px]"
           style={{
-            fontSize: "clamp(1rem, 1.6667vw, 1.5rem)",
-            lineHeight: "1.25",
+            color: "#86868b",
+            textAlign: "center",
+            width: "100%",
+            maxWidth: "50ch",
+            fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+            fontSize: "clamp(21px, 1.667vw, 24px)",
+            fontWeight: 300,
+            lineHeight: "clamp(32px, 2.778vw, 40px)",
             transitionDelay: "120ms",
           }}
         >

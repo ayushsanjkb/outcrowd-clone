@@ -1,18 +1,23 @@
 import type { Metadata } from 'next'
-import { Syne, Poppins } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll'
+import PageLoader from '@/components/PageLoader'
 
-const syne = Syne({
+const itcAvantGarde = localFont({
+  src: [
+    { path: '../public/fonts/ITCAvantGardeStd-Bk.woff', weight: '400', style: 'normal' },
+    { path: '../public/fonts/ITCAvantGardeStd-Md.ttf',  weight: '500', style: 'normal' },
+  ],
   variable: '--font-display',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
 })
 
-const poppins = Poppins({
+const lora = localFont({
+  src: [
+    { path: '../public/fonts/FMl_E.woff2', weight: '100 900', style: 'normal' },
+  ],
   variable: '--font-body',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 
@@ -27,9 +32,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${poppins.variable} h-full antialiased`}
+      className={`${itcAvantGarde.variable} ${lora.variable} h-full antialiased`}
     >
       <body className="min-h-full">
+        <PageLoader />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

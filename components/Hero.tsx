@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
 
 /*
   Brand mockup stagger (proportions within the brand animation window):
@@ -38,6 +39,9 @@ export default function Hero() {
   const brandRef = useRef<HTMLDivElement>(null);
   const outstandingRef = useRef<HTMLDivElement>(null);
   const outstandingDarkRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
 
   // Refs to dynamically track exactly where the tablet image permanently rests on the screen
   const desktopTabletRef = useRef<HTMLDivElement>(null);
@@ -166,9 +170,27 @@ export default function Hero() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    // Trigger once on mount to establish initial layout state
     setTimeout(onScroll, 50);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // ── Entrance animation — fires after loader fades out (~2.2s) ──
+    const h = headingRef.current;
+    const s = subtitleRef.current;
+    const blob = blobRef.current;
+
+    if (h) gsap.set(h, { opacity: 0, y: 70, skewY: 3 });
+    if (s) gsap.set(s, { opacity: 0, y: 24 });
+    if (blob) gsap.set(blob, { scale: 0.6, opacity: 0 });
+
+    const tl = gsap.timeline({ delay: 2.1 });
+
+    tl.to(h,    { opacity: 1, y: 0, skewY: 0, duration: 1.1, ease: "power4.out" }, 0)
+      .to(s,    { opacity: 1, y: 0,           duration: 0.8, ease: "power3.out" }, 0.35)
+      .to(blob, { scale: 0.85, opacity: 1,    duration: 1.4, ease: "power2.out" }, 0.1);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      tl.kill();
+    };
   }, []);
 
   const item = (i: number, child: React.ReactNode) => (
@@ -275,7 +297,7 @@ export default function Hero() {
                   alt="Apple Pencil"
                   width={128}
                   height={512}
-                  className="w-full object-contain drop-shadow-lg"
+                  className="w-full object-contain"
                 />,
               )}
               {item(
@@ -374,15 +396,17 @@ export default function Hero() {
       {/* ── Fixed Scroll Text Layers ─────────────────── */}
 
       {/* 1. "Branding & Subtitle" -> Tightly grouped together at the top */}
-      <div className="absolute inset-x-0 top-[30vh] md:top-[20vh] z-[15] flex flex-col items-center gap-1 md:gap-4">
+      <div ref={heroTextRef} className="absolute inset-x-0 top-[30vh] md:top-[20vh] z-[15] flex flex-col items-center gap-1 md:gap-4">
         <h1
+          ref={headingRef}
           className="hero-heading text-center font-medium leading-none text-[#1d1d1d]"
           style={{ fontSize: "clamp(3.5rem, 16.667vw, 240px)" }}
         >
           Branding
         </h1>
         <p
-          className="font-medium leading-tight text-[#1d1d1d]"
+          ref={subtitleRef}
+          className="font-display font-light leading-tight text-[#1d1d1d]"
           style={{ fontSize: "clamp(1rem, 2.5vw, 1.7rem)" }}
         >
           The essence of your business
@@ -396,7 +420,7 @@ export default function Hero() {
         className="absolute inset-x-0 flex flex-col items-center justify-center text-center z-[20] top-[90svh] md:top-[146vh]"
       >
         <h2
-          className="hero-heading font-medium text-[#1d1d1d]"
+          className="hero-heading font-bold text-[#1d1d1d]"
           style={{ fontSize: "clamp(2.5rem, 6.5vw, 56px)", lineHeight: 1.05 }}
         >
           We make it

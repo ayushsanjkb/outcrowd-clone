@@ -79,7 +79,14 @@ function RollLink({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    gsap.set(el.querySelectorAll("span")[1], { rotationX: -60 });
+    const [s1, s2] = el.querySelectorAll<HTMLElement>("span");
+    gsap.set(s1, { transformStyle: "preserve-3d", transformOrigin: "50% 100%" });
+    gsap.set(s2, {
+      y: "100%",
+      rotationX: -90,
+      transformOrigin: "50% 0",
+      transformStyle: "preserve-3d",
+    });
   }, []);
 
   const onEnter = () => {
@@ -87,19 +94,19 @@ function RollLink({
     if (!el) return;
     const [s1, s2] = el.querySelectorAll<HTMLElement>("span");
     gsap.to(s1, {
-      y: "-110%",
-      rotationX: 60,
+      y: "-100%",
+      rotationX: 90,
       opacity: 0,
       color: hoverColor,
-      duration: 0.75,
+      duration: 0.55,
       ease: "power4.inOut",
       overwrite: true,
     });
     gsap.to(s2, {
-      y: "-100%",
+      y: "0%",
       rotationX: 0,
       color: hoverColor,
-      duration: 0.75,
+      duration: 0.55,
       ease: "power4.inOut",
       overwrite: true,
     });
@@ -114,17 +121,19 @@ function RollLink({
       rotationX: 0,
       opacity: 1,
       color,
-      duration: 0.75,
+      duration: 0.55,
       ease: "power4.inOut",
       overwrite: true,
+      willChange: "transform, opacity, color",
     });
     gsap.to(s2, {
-      y: "0%",
-      rotationX: -60,
+      y: "100%",
+      rotationX: -90,
       color,
-      duration: 0.75,
+      duration: 0.55,
       ease: "power4.inOut",
       overwrite: true,
+      willChange: "transform, color",
     });
   };
 
@@ -132,30 +141,30 @@ function RollLink({
     <Link
       ref={ref}
       href={href}
-      className="relative block overflow-hidden text-[15px] font-medium"
-      style={{ height: "1.25em", color, perspective: "700px" }}
+      className="font-display relative block overflow-hidden text-[13px] font-normal"
+      style={{ height: "1.9em", color, perspective: "700px" }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
       <span className="block">{label}</span>
-      <span className="absolute left-0 top-full block">{label}</span>
+      <span className="absolute left-0 top-0 block">{label}</span>
     </Link>
   );
 }
 
 export default function Footer() {
   return (
-    <footer data-nav-dark className="bg-[#080808] px-6 pb-24 pt-16">
-      <div className="mx-auto max-w-[1100px]">
+    <footer data-nav-dark className="bg-[#080808] px-8 md:px-16 lg:px-14 pb-10 pt-10">
+      <div>
         {/* Main — email/socials + nav columns */}
         <div className="flex flex-col gap-10 border-b border-[#1e1e1e] pb-12 md:flex-row md:justify-between md:gap-12">
           {/* Email + socials — top on mobile, right on desktop */}
           <div className="order-1 md:order-2 flex flex-col items-start md:items-end gap-5">
             <a
               href="mailto:hello@outcrowd.io"
-              className="email-link text-white no-underline transition-opacity duration-300 hover:opacity-70"
+              className="font-display email-link text-white no-underline"
               style={{
-                fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
+                fontSize: "clamp(1.5rem, 3.2vw, 2.9rem)",
                 fontWeight: 500,
                 lineHeight: "120%",
               }}
@@ -171,15 +180,23 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-[#1a1a1a] transition-colors duration-300 hover:bg-[#2a2a2a]"
+                  className="group relative flex h-[60px] w-[60px] items-center justify-center overflow-hidden rounded-[18px] bg-[#1a1a1a]"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={icon}
                     alt={label}
-                    width={15}
-                    height={15}
+                    width={22}
+                    height={22}
                     className="relative z-10 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full transition-transform duration-[600ms] group-hover:scale-[12]"
+                    style={{
+                      background: "#f05a28",
+                      transitionTimingFunction: "cubic-bezier(0.455, 0.03, 0.515, 0.955)",
+                    }}
                   />
                 </Link>
               ))}
@@ -214,10 +231,10 @@ export default function Footer() {
 
         {/* Bottom bar — stacked on mobile, row on desktop */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-8 gap-1">
-          <p className="text-[13px] text-[#555]">
+          <p className="font-display text-[13px] md:text-[16px] text-[#A3A3A3]">
             Copyright © 2025 Outcrowd Inc. All rights reserved.
           </p>
-          <p className="text-[13px] text-[#555]">Lewes — USA</p>
+          <p className="font-display text-[13px] md:text-[16px] text-[#A3A3A3]">Lewes — USA</p>
         </div>
       </div>
     </footer>

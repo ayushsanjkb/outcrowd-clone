@@ -44,7 +44,7 @@ export default function WhatIsOurSecret() {
           What&apos;s our secret?
         </h2>
 
-        <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 md:gap-x-[110px] md:gap-y-[76px] lg:grid-cols-3">
           {SECRETS.map(({ icon, title, desc }) => (
             <div key={title} className="reveal-item max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
               <div className="mb-5 flex h-[102px] w-[102px] max-md:h-[60px] max-md:w-[60px] items-center justify-center rounded-2xl overflow-hidden">
@@ -56,10 +56,10 @@ export default function WhatIsOurSecret() {
                   className="object-contain w-full h-full"
                 />
               </div>
-              <h3 className="mb-3 text-[17px] max-md:text-[21px] font-semibold tracking-tight text-white">
+              <h3 className="mb-3 text-[17px] max-md:text-[21px] font-semibold tracking-tight text-white font-display">
                 {title}
               </h3>
-              <p className="text-[17px] leading-normal tracking-tight text-[#737373]">{desc}</p>
+              <p className="text-[17px] leading-normal tracking-tight text-[#737373] font-display font-[500] md:max-w-2xl">{desc}</p>
             </div>
           ))}
         </div>

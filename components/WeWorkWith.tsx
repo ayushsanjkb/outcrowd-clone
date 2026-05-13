@@ -24,7 +24,7 @@ export default function WeWorkWith() {
           style={{
             fontSize: "clamp(32px, 4.4vw, 64px)",
             lineHeight: "clamp(40px, 4.6vw, 64px)",
-            maxWidth: "13ch",
+            maxWidth: "15ch",
           }}
         >
           We work with all kinds of clients

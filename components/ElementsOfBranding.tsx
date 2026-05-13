@@ -18,11 +18,16 @@ export default function ElementsOfBranding() {
             Elements of Branding
           </h2>
           <p
-            className="reveal-item mx-auto mt-4 text-center text-[#737373]"
+            className="reveal-item mx-auto mt-4"
             style={{
-              fontSize: "clamp(0.85rem, 1.1vw, 16px)",
-              maxWidth: "620px",
-              lineHeight: "1.7",
+              color: "#86868b",
+              textAlign: "center",
+              width: "100%",
+              maxWidth: "50ch",
+              fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+              fontSize: "clamp(21px, 1.667vw, 24px)",
+              fontWeight: 300,
+              lineHeight: "clamp(32px, 2.778vw, 40px)",
               transitionDelay: "100ms",
             }}
           >

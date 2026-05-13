@@ -67,7 +67,7 @@ function FAQItem({
         onClick={onToggle}
         aria-expanded={isOpen}
       >
-        <span className="font-medium text-white text-[18px] md:text-[24px]">
+        <span className="font-display font-medium text-white text-[18px] md:text-[24px]">
           {q}
         </span>
         {/* Icon: + when closed, − when open, smooth morph via opacity cross-fade */}
@@ -90,7 +90,7 @@ function FAQItem({
         }}
       >
         <div className="overflow-hidden">
-          <p className="pb-7 text-[13px] md:text-[17px] leading-relaxed text-[#737373]">{a}</p>
+          <p className="font-display pb-7 text-[13px] md:text-[14px] md:max-w-3xl leading-relaxed text-[#737373]">{a}</p>
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@ export default function FAQ() {
   return (
     <section
       data-nav-dark
-      className="bg-[#080808] px-6 py-24 max-md:px-5 max-md:pt-[48px] max-md:pb-[64px]"
+      className="bg-[#080808] px-6 py-24 max-md:px-5 md:pt-[230px] max-md:pb-[93.6px]"
     >
       <div className="mx-auto max-w-[1100px]">
         <h3
@@ -116,7 +116,7 @@ export default function FAQ() {
           Questions and Answers
         </h3>
 
-        <div className="divide-y divide-[#1e1e1e]">
+        <div className="divide-y divide-[#404040]">
           {FAQS.map(({ q, a }, i) => (
             <FAQItem
               key={q}
