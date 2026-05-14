@@ -410,11 +410,12 @@ function RollLink({
     <Link
       ref={ref}
       href={href}
-      className="relative block overflow-hidden text-sm font-medium font-display"
+      className="relative block text-sm font-medium font-display"
       style={{
         height: "1.9em",
         color,
         perspective: "700px",
+        clipPath: "inset(0)",
       }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
