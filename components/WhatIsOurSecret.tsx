@@ -35,8 +35,8 @@ const SECRETS = [
 
 export default function WhatIsOurSecret() {
   return (
-    <section data-nav-dark className="bg-black px-6 py-20">
-      <div className="mx-auto max-w-[1100px]">
+    <section data-nav-dark className="bg-black px-6 py-20 md:py-10">
+      <div className="mx-auto max-w-[1024px] md:pb-25">
         <h2
           className="hero-heading text-center md:text-left reveal-item mb-16 font-medium text-white"
           style={{ fontSize: "clamp(2rem, 4.6vw, 64px)" }}
@@ -47,7 +47,7 @@ export default function WhatIsOurSecret() {
         <div className="reveal-group grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 md:gap-x-[110px] md:gap-y-[76px] lg:grid-cols-3">
           {SECRETS.map(({ icon, title, desc }) => (
             <div key={title} className="reveal-item max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
-              <div className="mb-5 flex h-[102px] w-[102px] max-md:h-[60px] max-md:w-[60px] items-center justify-center rounded-2xl overflow-hidden">
+              <div className="mb-5 flex h-[102px] w-[102px] md:h-[80px] md:w-[80px] items-center justify-center rounded-xl overflow-hidden">
                 <Image
                   src={icon}
                   alt={title}
@@ -59,7 +59,7 @@ export default function WhatIsOurSecret() {
               <h3 className="mb-3 text-[17px] max-md:text-[21px] font-semibold tracking-tight text-white font-display">
                 {title}
               </h3>
-              <p className="text-[17px] leading-normal tracking-tight text-[#737373] font-display font-[500] md:max-w-2xl">{desc}</p>
+              <p className="text-[17px] leading-tight tracking-tight text-[#86868b] font-display font-[500] md:max-w-2xl">{desc}</p>
             </div>
           ))}
         </div>

@@ -18,7 +18,7 @@ const ITEMS = [
 export default function WeWorkWith() {
   return (
     <section className="overflow-hidden bg-[#f5f5f7] py-[52px] md:py-[80px] lg:py-[120px]">
-      <div className="mx-auto max-w-[980px] px-5 md:px-[30px] lg:px-[50px]">
+      <div className="mx-auto max-w-[1080px] px-5 md:px-[30px] lg:px-[50px]">
         <h2
           className="hero-heading font-medium text-[#1d1d1f]"
           style={{
@@ -32,7 +32,7 @@ export default function WeWorkWith() {
       </div>
 
       {/* ── Gallery — each element fires independently when it enters the viewport ── */}
-      <div className="mt-[60px] lg:mt-[100px]">
+      <div className="mt-[00px]">
         <div className="gallery_our_brand">
           <div className="brand_bl">
             {ITEMS.map(({ cls, y, src, w }) => (

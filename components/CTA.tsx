@@ -54,7 +54,7 @@ export default function CTA() {
               <Link
                 href="mailto:hello@outcrowd.io"
                 className="group relative overflow-hidden flex items-center justify-center w-full lg:w-auto lg:flex-none"
-                style={{ borderRadius: '1.111rem', padding: 'clamp(14px, 2.05vw, 2.05rem) clamp(20px, 3.8vw, 3.8rem) clamp(14px, 2.45vw, 2.45rem)' }}
+                style={{ borderRadius: '1.111rem', padding: 'clamp(14px, 2.05vw, 2.05rem) clamp(20px, 3.8vw, 3.8rem)' }}
               >
                 <span
                   aria-hidden="true"
@@ -77,7 +77,7 @@ export default function CTA() {
               {/* Book a call */}
               <button
                 className="group relative overflow-hidden flex items-center justify-center w-full lg:w-auto lg:flex-none"
-                style={{ borderRadius: '1.111rem', background: '#2a2a2a', padding: 'clamp(14px, 2.05vw, 2.05rem) clamp(20px, 3.8vw, 3.8rem) clamp(14px, 2.45vw, 2.45rem)' }}
+                style={{ borderRadius: '1.111rem', background: '#2a2a2a', padding: 'clamp(14px, 2.05vw, 2.05rem) clamp(20px, 3.8vw, 3.8rem)' }}
               >
                 <span
                   aria-hidden="true"

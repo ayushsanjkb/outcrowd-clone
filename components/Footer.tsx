@@ -38,7 +38,7 @@ const NAV_COLS = [
 const SOCIALS = [
   {
     href: "https://dribbble.com/outcrowd",
-    icon: "/behance.svg",
+    icon: "https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66a6043f15171cfef875605c_dribbble-icon%201.svg",
     label: "Dribbble",
   },
   {
@@ -141,7 +141,7 @@ function RollLink({
     <Link
       ref={ref}
       href={href}
-      className="font-display relative block overflow-hidden text-[13px] font-normal"
+      className="font-display relative block overflow-hidden text-[14px] font-[500]"
       style={{ height: "1.9em", color, perspective: "700px" }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
@@ -155,7 +155,7 @@ function RollLink({
 export default function Footer() {
   return (
     <footer data-nav-dark className="bg-[#080808] px-8 md:px-16 lg:px-14 pb-10 pt-10">
-      <div>
+      <div className="max-w-[1440px] mx-auto">
         {/* Main — email/socials + nav columns */}
         <div className="flex flex-col gap-10 border-b border-[#1e1e1e] pb-12 md:flex-row md:justify-between md:gap-12">
           {/* Email + socials — top on mobile, right on desktop */}
@@ -172,7 +172,7 @@ export default function Footer() {
               hello@outcrowd.io
             </a>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
               {SOCIALS.map(({ href, icon, label }) => (
                 <Link
                   key={label}
@@ -188,7 +188,7 @@ export default function Footer() {
                     alt={label}
                     width={22}
                     height={22}
-                    className="relative z-10 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                    className="relative z-10 opacity-100 group-hover:opacity-100 transition-opacity duration-300"
                   />
                   <span
                     aria-hidden="true"
@@ -231,10 +231,10 @@ export default function Footer() {
 
         {/* Bottom bar — stacked on mobile, row on desktop */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-8 gap-1">
-          <p className="font-display text-[13px] md:text-[16px] text-[#A3A3A3]">
+          <p className="font-display text-[13px] md:text-[16px] text-[#A3A3A3] font-[500]">
             Copyright © 2025 Outcrowd Inc. All rights reserved.
           </p>
-          <p className="font-display text-[13px] md:text-[16px] text-[#A3A3A3]">Lewes — USA</p>
+          <p className="font-display text-[13px] md:text-[16px] text-[#A3A3A3] font-[500]">Lewes — USA</p>
         </div>
       </div>
     </footer>

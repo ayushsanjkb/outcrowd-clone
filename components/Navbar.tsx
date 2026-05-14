@@ -142,18 +142,24 @@ export default function Navbar() {
               className="block h-[1.5px] rounded-full"
               style={{
                 background: iconColor,
-                width: '20px',
-                transform: menuOpen ? 'translateY(3.25px) rotate(45deg)' : 'none',
-                transition: 'transform 0.35s cubic-bezier(0.76,0,0.24,1), background 0.3s',
+                width: "20px",
+                transform: menuOpen
+                  ? "translateY(3.25px) rotate(45deg)"
+                  : "none",
+                transition:
+                  "transform 0.35s cubic-bezier(0.76,0,0.24,1), background 0.3s",
               }}
             />
             <span
               className="block h-[1.5px] rounded-full"
               style={{
                 background: iconColor,
-                width: menuOpen ? '20px' : '14px',
-                transform: menuOpen ? 'translateY(-3.25px) rotate(-45deg)' : 'none',
-                transition: 'transform 0.35s cubic-bezier(0.76,0,0.24,1), width 0.35s cubic-bezier(0.76,0,0.24,1), background 0.3s',
+                width: menuOpen ? "20px" : "14px",
+                transform: menuOpen
+                  ? "translateY(-3.25px) rotate(-45deg)"
+                  : "none",
+                transition:
+                  "transform 0.35s cubic-bezier(0.76,0,0.24,1), width 0.35s cubic-bezier(0.76,0,0.24,1), background 0.3s",
               }}
             />
           </button>
@@ -162,8 +168,9 @@ export default function Navbar() {
         {/* Desktop */}
         <div className="hidden md:flex justify-center px-4 pt-5">
           <nav
-            className={`flex shrink-0 items-center justify-between ${pillBg}`}
+            className={`grid shrink-0 items-center ${pillBg}`}
             style={{
+              gridTemplateColumns: "1fr auto 1fr",
               width: scrolled ? "20rem" : "41.25rem",
               height: "3.47222rem",
               padding: "0.28rem",
@@ -171,14 +178,12 @@ export default function Navbar() {
               transition: `width 0.7s ${EASE}, background-color 0.3s`,
             }}
           >
-            <Link
-              href="/"
-              aria-label="Home"
-              className="shrink-0 pl-2"
-            >
+            {/* Left: Logo */}
+            <Link href="/" aria-label="Home" className="shrink-0 pl-2 flex items-center">
               <OutcrowdLogo dark={dark} />
             </Link>
 
+            {/* Center: Links — grid auto column keeps this truly centered */}
             <div
               style={{
                 width: scrolled ? "0" : "22rem",
@@ -187,11 +192,11 @@ export default function Navbar() {
               }}
             >
               <ul
-                className="flex items-center gap-7 whitespace-nowrap"
+                className="flex items-center justify-center gap-7 whitespace-nowrap"
                 style={{
                   opacity: scrolled ? 0 : 1,
                   transform: scrolled ? "scale(0.85)" : "scale(1)",
-                  transformOrigin: "right center",
+                  transformOrigin: "center center",
                   transition: `opacity 0.5s ${EASE}, transform 0.5s ${EASE}`,
                   pointerEvents: scrolled ? "none" : "auto",
                 }}
@@ -209,24 +214,25 @@ export default function Navbar() {
               </ul>
             </div>
 
-            <div className="flex shrink-0 items-center gap-2">
+            {/* Right: Buttons */}
+            <div className="flex shrink-0 items-center justify-end">
+              {/* Book a call — max-width collapse so zero space when hidden, smooth transition */}
               <div
                 style={{
+                  maxWidth: scrolled ? "8rem" : "0",
+                  overflow: "hidden",
                   opacity: scrolled ? 1 : 0,
-                  transform: scrolled ? "scale(1)" : "scale(0.7)",
-                  transition: `opacity 0.5s ${EASE}, transform 0.5s ${EASE}`,
+                  marginRight: scrolled ? "0.5rem" : "0",
+                  transition: `max-width 0.7s ${EASE}, opacity 0.5s ${EASE}, margin-right 0.7s ${EASE}`,
                   pointerEvents: scrolled ? "auto" : "none",
-                  display: scrolled ? "block" : "none",
                 }}
               >
                 <RippleButton
                   tag="button"
                   rippleColor={
-                    dark
-                      ? "rgba(255,255,255,0.12)"
-                      : "rgba(0,0,0,0.08)"
+                    dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)"
                   }
-                  className={`font-display rounded-lg px-4 py-3 text-sm font-medium ${bookBg}`}
+                  className={`font-display whitespace-nowrap rounded-lg px-4 py-3 text-sm font-medium ${bookBg}`}
                 >
                   Book a call
                 </RippleButton>
@@ -236,7 +242,7 @@ export default function Navbar() {
                 tag="a"
                 href="#contact"
                 rippleColor="#8a5cff"
-                className="font-display rounded-lg bg-[#f05a28] px-5 py-2.5 text-sm font-normal text-white"
+                className="font-display rounded-lg bg-[#FE4A23] px-5 py-2.5 text-sm text-white font-[500]"
               >
                 Contact
               </RippleButton>
@@ -249,9 +255,9 @@ export default function Navbar() {
       <div
         className="fixed inset-0 z-40 flex flex-col bg-[#080808] md:hidden"
         style={{
-          clipPath: menuOpen ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
-          transition: 'clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1)',
-          pointerEvents: menuOpen ? 'auto' : 'none',
+          clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
+          transition: "clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1)",
+          pointerEvents: menuOpen ? "auto" : "none",
         }}
       >
         <div className="h-[72px]" />
@@ -302,7 +308,7 @@ export default function Navbar() {
             <Link
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="block w-full rounded-full bg-[#f05a28] py-4 text-center text-sm font-semibold text-white font-display"
+              className="block w-full rounded-full bg-[#FE4A23] py-4 text-center text-sm font-semibold text-white font-display"
             >
               Contact
             </Link>
@@ -413,11 +419,9 @@ function RollLink({
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
-      <span className="block">{label}</span>
+      <span className="block" style={{ lineHeight: "1.9em" }}>{label}</span>
 
-      <span className="absolute left-0 top-0 block">
-        {label}
-      </span>
+      <span className="absolute left-0 top-0 block" style={{ lineHeight: "1.9em", transform: "translateY(100%)" }}>{label}</span>
     </Link>
   );
 }
@@ -439,17 +443,14 @@ function RippleButton({
 }: RippleProps) {
   const inner = (
     <>
-      <span className="relative z-10">
-        {children}
-      </span>
+      <span className="relative z-10">{children}</span>
 
       <span
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full transition-transform duration-[600ms] group-hover:scale-[36]"
         style={{
           background: rippleColor,
-          transitionTimingFunction:
-            "cubic-bezier(0.455, 0.03, 0.515, 0.955)",
+          transitionTimingFunction: "cubic-bezier(0.455, 0.03, 0.515, 0.955)",
         }}
       />
     </>
@@ -465,11 +466,7 @@ function RippleButton({
     );
   }
 
-  return (
-    <button className={shared}>
-      {inner}
-    </button>
-  );
+  return <button className={shared}>{inner}</button>;
 }
 
 function OutcrowdLogo({ dark }: { dark: boolean }) {
@@ -500,12 +497,8 @@ function OutcrowdLogo({ dark }: { dark: boolean }) {
   }, []);
 
   return (
-    <span
-      ref={wrapRef}
-      className="flex items-center select-none"
-    >
+    <span ref={wrapRef} className="flex items-center select-none">
       <div className="relative h-[18px] w-[36px] overflow-hidden">
-        
         {/* Dark */}
         <div
           className="absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]"
