@@ -35,7 +35,9 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-family: var(--font-body), Georgia, serif;
+  overscroll-behavior: none;
 }
+
 
 * {
   box-sizing: border-box;
@@ -159,15 +161,20 @@ body {
 /* ── Scroll-reveal system ──────────────────────────────────────── */
 .reveal-item {
   opacity: 0;
-  transform: translateY(44px);
+  /* translateZ(0) pre-promotes to a GPU compositing layer at render time.
+     Without this, Safari creates the layer at transition-start, which collides
+     with lazy-image decode/paint and causes scroll jitter. */
+  transform: translateY(44px) translateZ(0);
   transition:
     opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .reveal-item.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 /* stagger siblings inside a reveal-group */
@@ -270,6 +277,11 @@ body {
 /* Base absolute positioning for all gallery images */
 .brand_bl > div {
   position: absolute;
+  /* Pre-promote to GPU layer so framer-motion whileInView doesn't create
+     compositing layers mid-scroll when large images are decoding */
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* CRITICAL FIX: Force the massive Webflow images to fit inside their containers */

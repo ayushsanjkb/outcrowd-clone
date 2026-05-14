@@ -52,15 +52,31 @@ export default function Hero() {
   const cachedTargetScale = useRef<number | null>(null);
 
   useEffect(() => {
+    // ── Cache viewport metrics — reading these inside onScroll causes forced
+    //    layout reflows (offsetHeight) or unnecessary work (innerHeight) every frame.
+    let vh = window.innerHeight;
+    let vw = window.innerWidth;
+    let isMobile = vw < 768;
+    // offsetHeight is the one true forced-reflow call; do it once at mount + resize.
+    let stickyH = blobRef.current?.parentElement?.offsetHeight ?? vh;
+
+    // Cache brand item elements once — avoids querySelectorAll on every scroll frame.
+    const brandItems: HTMLElement[] = brandRef.current
+      ? Array.from(brandRef.current.querySelectorAll<HTMLElement>("[data-brand-item]"))
+      : [];
+
+    const onResize = () => {
+      vh = window.innerHeight;
+      vw = window.innerWidth;
+      isMobile = vw < 768;
+      stickyH = blobRef.current?.parentElement?.offsetHeight ?? vh;
+      cachedTyAtTablet.current = null;
+      cachedTargetScale.current = null;
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
     const onScroll = () => {
       const scrollY = window.scrollY;
-      const vh = window.innerHeight;
-      const vw = window.innerWidth;
-      const isMobile = vw < 768;
-
-      // Use the actual rendered sticky height (offsetHeight) instead of window.innerHeight
-      // so that CSS top:50% and JS calculations stay in sync on mobile (100svh ≠ innerHeight).
-      const stickyH = blobRef.current?.parentElement?.offsetHeight ?? vh;
 
       // Mobile compresses all animation phases to fit within ~1.7×svh
       // (reference hero is 300svh with 90svh sticky, animation done by ~1.4×svh)
@@ -154,18 +170,17 @@ export default function Hero() {
       }
 
       // ── 5. Brand mockup items rise ────────────────────────────────
-      if (brandRef.current) {
+      if (brandItems.length > 0) {
         const brandP = c((scrollY - vh * brandStart) / (vh * brandRange));
-        brandRef.current
-          .querySelectorAll<HTMLElement>("[data-brand-item]")
-          .forEach((el) => {
-            const i = Number(el.dataset.brandItem);
-            const [s, e] = BRAND_CFG[i] ?? [0, 0.5];
-            const t = c((brandP - s) / (e - s));
-            const et = easeInOut(t);
-            el.style.transform = `translateY(${(1 - et) * RISE}px)`;
-            el.style.opacity = String(Math.min(1, et * 1.2));
-          });
+        brandItems.forEach((el) => {
+          const i = Number(el.dataset.brandItem);
+          const [s, e] = BRAND_CFG[i] ?? [0, 0.5];
+          const t = c((brandP - s) / (e - s));
+          const et = easeInOut(t);
+          // translateZ(0) keeps the GPU compositing layer active — avoids re-promotion every frame
+          el.style.transform = `translateY(${(1 - et) * RISE}px) translateZ(0)`;
+          el.style.opacity = String(Math.min(1, et * 1.2));
+        });
       }
     };
 
@@ -179,16 +194,18 @@ export default function Hero() {
 
     if (h) gsap.set(h, { opacity: 0, y: 70, skewY: 3 });
     if (s) gsap.set(s, { opacity: 0, y: 24 });
-    if (blob) gsap.set(blob, { scale: 0.6, opacity: 0 });
+    // Blob opacity is already 0 via inline style — do NOT let GSAP touch the transform,
+    // it cannot parse calc() values and would drop the -50% centering translates.
 
     const tl = gsap.timeline({ delay: 2.1 });
 
     tl.to(h,    { opacity: 1, y: 0, skewY: 0, duration: 1.1, ease: "power4.out" }, 0)
       .to(s,    { opacity: 1, y: 0,           duration: 0.8, ease: "power3.out" }, 0.35)
-      .to(blob, { scale: 0.85, opacity: 1,    duration: 1.4, ease: "power2.out" }, 0.1);
+      .to(blob, { opacity: 1,                 duration: 1.4, ease: "power2.out" }, 0.1);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       tl.kill();
     };
   }, []);
@@ -197,9 +214,8 @@ export default function Hero() {
     <div
       data-brand-item={i}
       style={{
-        transform: `translateY(${RISE}px)`,
+        transform: `translateY(${RISE}px) translateZ(0)`,
         opacity: 0,
-        willChange: "transform, opacity",
         width: "100%",
       }}
     >
@@ -232,7 +248,8 @@ export default function Hero() {
               "translateX(calc(-50% - 22px)) translateY(calc(-50% + 30vh)) scale(0.85)",
             transformOrigin: "center center",
             filter: "blur(16px)",
-            willChange: "transform, filter",
+            willChange: "transform",
+            opacity: 0,
           }}
         >
           <Image
@@ -262,6 +279,7 @@ export default function Hero() {
                   alt="Soun mug"
                   width={314}
                   height={273}
+                  loading="eager"
                   className="w-full rounded-2xl object-cover drop-shadow-xl"
                 />,
               )}
@@ -272,6 +290,7 @@ export default function Hero() {
                   alt="Banking card"
                   width={314}
                   height={216}
+                  loading="eager"
                   className="w-full rounded-2xl object-cover drop-shadow-xl"
                 />,
               )}
@@ -282,6 +301,7 @@ export default function Hero() {
                   alt="Visit card"
                   width={314}
                   height={200}
+                  loading="eager"
                   className="w-full rounded-2xl object-cover drop-shadow-xl"
                 />,
               )}
@@ -297,6 +317,7 @@ export default function Hero() {
                   alt="Apple Pencil"
                   width={128}
                   height={512}
+                  loading="eager"
                   className="w-full object-contain"
                 />,
               )}
@@ -307,6 +328,7 @@ export default function Hero() {
                   alt="Mouse"
                   width={128}
                   height={174}
+                  loading="eager"
                   className="w-full rounded-xl object-contain drop-shadow-lg"
                 />,
               )}
@@ -338,6 +360,7 @@ export default function Hero() {
                   alt="Mobile app"
                   width={271}
                   height={437}
+                  loading="eager"
                   className="w-full rounded-2xl object-cover drop-shadow-xl"
                 />,
               )}
@@ -348,6 +371,7 @@ export default function Hero() {
                   alt="Speaker badge"
                   width={271}
                   height={252}
+                  loading="eager"
                   className="w-full rounded-2xl object-cover drop-shadow-xl"
                 />,
               )}
@@ -360,6 +384,7 @@ export default function Hero() {
                   alt="Watch OS"
                   width={172}
                   height={690}
+                  loading="eager"
                   className="w-full rounded-2xl object-cover drop-shadow-xl"
                 />,
               )}
@@ -381,6 +406,7 @@ export default function Hero() {
               <img
                 src="https://cdn.prod.website-files.com/667a7576e7e7ef3ba89b3f2a/66c6dc03db164920f9e803f3_desktop.webp"
                 alt="Soun tablet app"
+                decoding="async"
                 className="w-full rounded-2xl object-cover"
                 style={{
                   aspectRatio: '780/478',

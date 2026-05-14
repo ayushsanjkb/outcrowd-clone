@@ -49,6 +49,7 @@ export default function WeWorkWith() {
                   alt=""
                   src={src}
                   loading="lazy"
+                  decoding="async"
                 />
               </motion.div>
             ))}
